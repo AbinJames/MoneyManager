@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="float-right">
+    <!-- navigate to create component on click -->
+    <a class="btn btn-link " href="add-deposit"><span class="fa fa-plus">Create New</span></a>
+  </div>
+  <div class="float-right">
+    <!-- navigate to filter component on click -->
+    <a class="btn btn-link" (click)="toggleFilter()">
+      <span class="fa fa-filter" *ngIf="!filterEnabled">Filter</span>
+      <span class="fa fa-filter" *ngIf="filterEnabled">Stop Filtering</span>
+    </a>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Day</label>
+          <input type="text" class="form-control"  [(ngModel)]="depositDay" *ngIf="filterEnabled">
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Month</label>
+          <input type="text" class="form-control"  [(ngModel)]="depositMonth" *ngIf="filterEnabled">
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Year</label>
+          <input type="text" class="form-control"  [(ngModel)]="depositYear" *ngIf="filterEnabled">
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Source</label>
+          <input type="text" class="form-control"  [(ngModel)]="depositSource" *ngIf="filterEnabled">
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Amount</label>
+          <input type="text" class="form-control"  [(ngModel)]="depositAmount" *ngIf="filterEnabled">
+        </div>
+      </th>
+    </tr>
+    <tr *ngFor="let deposit of (depositDetails|DepositFilterPipe:depositDay:depositMonth:depositYear:depositSource:depositAmount:filterEnabled)">
+      <td>{{deposit.depositId}}</td>
+      <td>{{deposit.depositDate| date: 'dd'}}</td>
+      <td>{{deposit.depositDate| date: 'MMMM'}}</td>
+      <td>{{deposit.depositDate| date: 'yyyy'}}</td>
+      <td>{{deposit.depositSource}}</td>
+      <td><i class="fas fa-rupee-sign"></i>{{deposit.depositAmount}}</td>
+    </tr>
+  </table>
+</div>

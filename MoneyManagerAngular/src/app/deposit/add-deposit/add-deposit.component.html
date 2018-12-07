@@ -1,0 +1,38 @@
+<div class="container">
+  <form [formGroup]="depositForm" (ngSubmit)="saveDeposit(depositForm)">
+    <!-- Form control for depositName -->
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Source<span style="color: red">*</span></label>
+      <input type="text" class="form-control" formControlName="depositSource">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="depositForm.get('depositSource').invalid && depositForm.get('depositSource').touched">
+        Source is required
+      </span>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Date<span style="color: red">*</span></label>
+      <input type="date" class="form-control" formControlName="depositDate">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="depositForm.get('depositDate').invalid && depositForm.get('depositDate').touched">
+        Date is required
+      </span>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Amount<span style="color: red">*</span></label>
+      <input type="number" class="form-control" formControlName="depositAmount">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="depositForm.get('depositAmount').invalid && depositForm.get('depositAmount').touched">
+        Amount is required
+      </span>
+    </div>
+    <!-- button to submit data 
+    It is disabled if any validation error is present -->
+    <button type="submit" class="btn btn-success" [disabled]="depositForm.invalid">Save</button>
+    <div class="float-right">
+      <a href="view-deposit" class="btn btn-outline-dark">Cancel</a>
+    </div>
+  </form>
+</div>
+<br>
+<pre>{{depositForm.value | json }}</pre>
