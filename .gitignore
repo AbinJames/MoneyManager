@@ -6,4 +6,4 @@ bin-release/
 
 # Other files and folders
 MoneyManagerAngular/node_modules
-MoneyManager.API.Web/.vs/MoneyManager.API/v15/Server/sqlite3/db.lock
+MoneyManager.API.Web/.vs/MoneyManager.API/v15
