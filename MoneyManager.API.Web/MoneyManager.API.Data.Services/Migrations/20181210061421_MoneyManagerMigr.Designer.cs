@@ -10,8 +10,8 @@ using MoneyManager.API.Data.Services.Context;
 namespace MoneyManager.API.Data.Services.Migrations
 {
     [DbContext(typeof(MoneyManagerContext))]
-    [Migration("20181207072403_MoneyManagerMigration")]
-    partial class MoneyManagerMigration
+    [Migration("20181210061421_MoneyManagerMigr")]
+    partial class MoneyManagerMigr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,8 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.Property<string>("depositSource")
                         .IsRequired()
                         .HasMaxLength(60);
+
+                    b.Property<DateTime>("depositTime");
 
                     b.HasKey("depositId");
 

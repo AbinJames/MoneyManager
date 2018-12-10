@@ -28,6 +28,13 @@ namespace MoneyManager.API.Data
         public DateTime depositDate { get; set; }
 
         /// <summary>
+        /// Estimated time when amount was deposited
+        /// </summary>
+        [Required]
+        [DataType(DataType.Time)]
+        public DateTime depositTime { get; set; }
+
+        /// <summary>
         /// Amount deposited
         /// </summary>
         [Required]

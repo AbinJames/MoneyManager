@@ -18,39 +18,79 @@
       <th>
         <div class="form-group">
           <label class="control-label">Day</label>
-          <input type="text" class="form-control"  [(ngModel)]="depositDay" *ngIf="filterEnabled">
         </div>
       </th>
       <th>
         <div class="form-group">
           <label class="control-label">Month</label>
-          <input type="text" class="form-control"  [(ngModel)]="depositMonth" *ngIf="filterEnabled">
         </div>
       </th>
       <th>
         <div class="form-group">
           <label class="control-label">Year</label>
-          <input type="text" class="form-control"  [(ngModel)]="depositYear" *ngIf="filterEnabled">
         </div>
+      </th>
+      <th>
+        Time
       </th>
       <th>
         <div class="form-group">
           <label class="control-label">Source</label>
-          <input type="text" class="form-control"  [(ngModel)]="depositSource" *ngIf="filterEnabled">
         </div>
       </th>
       <th>
+        <!-- Amount div start -->
         <div class="form-group">
           <label class="control-label">Amount</label>
-          <input type="text" class="form-control"  [(ngModel)]="depositAmount" *ngIf="filterEnabled">
         </div>
+        <!-- Amount div end -->
       </th>
     </tr>
-    <tr *ngFor="let deposit of (depositDetails|DepositFilterPipe:depositDay:depositMonth:depositYear:depositSource:depositAmount:filterEnabled)">
+    <tr *ngIf="filterEnabled"></tr>
+    <tr *ngIf="filterEnabled">
+      <th></th>
+      <th colspan="3">
+        <div class="form-group">
+          <label class="control-label">Start Date</label>
+          <input type="date" class="form-control" [(ngModel)]="depositStartDate" min="{{minDateLimit}}" max="{{maxDateLimit}}">
+        </div>
+        <div class="form-group">
+          <label class="control-label">End Date</label>
+          <input type="date" class="form-control" [(ngModel)]="depositEndDate" min="{{minDateLimit}}" max="{{maxDateLimit}}">
+        </div>
+        <span class="error" *ngIf="depositStartDate>depositEndDate">
+            Min > Max makes little sense
+          </span>
+      </th>
+      <th></th>
+      <th>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="depositSource">
+        </div>
+      </th>
+      <th>
+        <!-- Amount filter start -->
+        <div class="form-group">
+          <label class="control-label"><span>Min :{{ minAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="minAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+        </div>
+        <div class="form-group">
+          <label class="control-label"><span>Max :{{ maxAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="maxAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+          <!-- Shows error message if range is incorrect-->
+          <span class="error" *ngIf="minAmount>maxAmount">
+            Min > Max makes little sense
+          </span>
+        </div>
+        <!-- Amount filter end -->
+      </th>
+    </tr>
+    <tr *ngFor="let deposit of (depositDetails|DepositFilterPipe:depositStartDate:depositEndDate:depositSource:minAmount:maxAmount:filterEnabled)">
       <td>{{deposit.depositId}}</td>
       <td>{{deposit.depositDate| date: 'dd'}}</td>
       <td>{{deposit.depositDate| date: 'MMMM'}}</td>
       <td>{{deposit.depositDate| date: 'yyyy'}}</td>
+      <td>{{deposit.depositTime| date: 'hh:mm a' }}</td>
       <td>{{deposit.depositSource}}</td>
       <td><i class="fas fa-rupee-sign"></i>{{deposit.depositAmount}}</td>
     </tr>
