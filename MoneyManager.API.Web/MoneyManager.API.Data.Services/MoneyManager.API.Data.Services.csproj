@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181207072403_MoneyManagerMigration.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">

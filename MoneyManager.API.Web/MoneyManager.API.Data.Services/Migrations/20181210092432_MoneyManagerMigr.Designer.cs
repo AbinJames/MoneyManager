@@ -10,8 +10,8 @@ using MoneyManager.API.Data.Services.Context;
 namespace MoneyManager.API.Data.Services.Migrations
 {
     [DbContext(typeof(MoneyManagerContext))]
-    [Migration("20181207072403_MoneyManagerMigration")]
-    partial class MoneyManagerMigration
+    [Migration("20181210092432_MoneyManagerMigr")]
+    partial class MoneyManagerMigr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,34 @@ namespace MoneyManager.API.Data.Services.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MoneyManager.API.Data.AmountSplitParameters", b =>
+                {
+                    b.Property<int>("parameterId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("parameterAmount")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("parameterName")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.HasKey("parameterId");
+
+                    b.ToTable("AmountSplitParameters");
+
+                    b.HasData(
+                        new { parameterId = 1, parameterAmount = 2000m, parameterName = "Groceries" },
+                        new { parameterId = 2, parameterAmount = 1000m, parameterName = "Medical Expenses" },
+                        new { parameterId = 3, parameterAmount = 800m, parameterName = "Travel Expenses" },
+                        new { parameterId = 4, parameterAmount = 2000m, parameterName = "Utilities - Electricity" },
+                        new { parameterId = 5, parameterAmount = 500m, parameterName = "Movie" },
+                        new { parameterId = 6, parameterAmount = 1000m, parameterName = "Miscelleneous" }
+                    );
+                });
 
             modelBuilder.Entity("MoneyManager.API.Data.DepositDetails", b =>
                 {
@@ -36,6 +64,8 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.Property<string>("depositSource")
                         .IsRequired()
                         .HasMaxLength(60);
+
+                    b.Property<DateTime>("depositTime");
 
                     b.HasKey("depositId");
 

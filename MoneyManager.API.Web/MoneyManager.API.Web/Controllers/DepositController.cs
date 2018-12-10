@@ -45,7 +45,8 @@ namespace MoneyManager.API.Web.Controllers
         /// Gets list of deposit details from database through service
         /// </summary>
         /// <returns>List of deposit details</returns>
-        [HttpGet("GetDeposit")]
+        [HttpGet]
+        [Route("GetDeposit")]
         public IEnumerable<DepositDetails> GetDepositDetails()
         {
             return depositService.GetDepositDetails();

@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DepositModule } from './deposit/deposit.module';
 import { DepositService } from './deposit/deposit.service';
+import { DatePipe } from '@angular/common';
+import { ParameterService } from './parameters/parameter.service';
+import { ParametersModule } from './parameters/parameters.module';
 
 @NgModule({
   declarations: [
@@ -14,10 +17,14 @@ import { DepositService } from './deposit/deposit.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    DepositModule
+    DepositModule,
+    ParametersModule
   ],
   providers: [
-    DepositService
+    AppComponent,
+    DepositService,
+    ParameterService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

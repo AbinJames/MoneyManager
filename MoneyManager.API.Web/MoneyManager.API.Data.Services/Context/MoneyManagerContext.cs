@@ -19,5 +19,15 @@ namespace MoneyManager.API.Data.Services.Context
 
         //Set DbSet for following classes to access from database
         public DbSet<DepositDetails> DepositDetails { get; set; }
+        public DbSet<AmountSplitParameters> AmountSplitParameters { get; set; }
+
+        /// <summary>
+        /// Function to execute action during data migrations
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.SeedData(); // An extension method written specifically for adding the seed data
+        }
     }
 }

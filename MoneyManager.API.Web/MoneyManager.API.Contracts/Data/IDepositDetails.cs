@@ -22,6 +22,11 @@ namespace MoneyManager.API.Contracts.Data
         DateTime depositDate { get; set; }
 
         /// <summary>
+        /// Estimated time when amount was deposited
+        /// </summary>
+        DateTime depositTime { get; set; }
+
+        /// <summary>
         /// Amount deposited
         /// </summary>
         float depositAmount { get; set; }
