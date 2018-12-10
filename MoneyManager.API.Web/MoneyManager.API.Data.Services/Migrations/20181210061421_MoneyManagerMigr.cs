@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MoneyManager.API.Data.Services.Migrations
 {
-    public partial class MoneyManagerMigration : Migration
+    public partial class MoneyManagerMigr : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace MoneyManager.API.Data.Services.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     depositSource = table.Column<string>(maxLength: 60, nullable: false),
                     depositDate = table.Column<DateTime>(nullable: false),
+                    depositTime = table.Column<DateTime>(nullable: false),
                     depositAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
                 },
                 constraints: table =>

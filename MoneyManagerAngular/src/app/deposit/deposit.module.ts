@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DepositFilterPipe } from './deposit-filter.pipe';
 
 @NgModule({
-  declarations: [AddDepositComponent, ViewDepositComponent,DepositFilterPipe],
+  declarations: [AddDepositComponent, ViewDepositComponent, DepositFilterPipe],
   imports: [
     CommonModule,
     FormsModule,

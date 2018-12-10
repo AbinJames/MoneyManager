@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DepositModule } from './deposit/deposit.module';
 import { DepositService } from './deposit/deposit.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DepositService } from './deposit/deposit.service';
     DepositModule
   ],
   providers: [
-    DepositService
+    DepositService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

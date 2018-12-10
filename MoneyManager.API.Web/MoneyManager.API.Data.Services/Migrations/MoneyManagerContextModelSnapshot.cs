@@ -35,6 +35,8 @@ namespace MoneyManager.API.Data.Services.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
+                    b.Property<DateTime>("depositTime");
+
                     b.HasKey("depositId");
 
                     b.ToTable("DepositDetails");
