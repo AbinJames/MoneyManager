@@ -20,6 +20,7 @@ namespace MoneyManager.API.Data.Services.Context
         //Set DbSet for following classes to access from database
         public DbSet<DepositDetails> DepositDetails { get; set; }
         public DbSet<AmountSplitParameters> AmountSplitParameters { get; set; }
+        public DbSet<ParameterEntry> ParameterEntry { get; set; }
 
         /// <summary>
         /// Function to execute action during data migrations

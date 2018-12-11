@@ -23,5 +23,10 @@ namespace MoneyManager.API.Contracts.Data
         /// Amount to be taken from deposit for parameter
         /// </summary>
         float parameterAmount { get; set; }
+
+        /// <summary>
+        /// Balance amount after division from deposit for parameter
+        /// </summary>
+        float parameterBalance { get; set; }
     }
 }

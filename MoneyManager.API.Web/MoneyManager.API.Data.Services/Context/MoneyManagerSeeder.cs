@@ -17,12 +17,12 @@ namespace MoneyManager.API.Data.Services.Context
         public static void SeedData(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AmountSplitParameters>().HasData(
-                new AmountSplitParameters { parameterId = 1, parameterName = "Groceries", parameterAmount = 2000 },
-                new AmountSplitParameters { parameterId = 2, parameterName = "Medical Expenses", parameterAmount = 1000 },
-                new AmountSplitParameters { parameterId = 3, parameterName = "Travel Expenses", parameterAmount = 800 },
-                new AmountSplitParameters { parameterId = 4, parameterName = "Utilities - Electricity", parameterAmount = 2000 },
-                new AmountSplitParameters { parameterId = 5, parameterName = "Movie", parameterAmount = 500 },
-                new AmountSplitParameters { parameterId = 6, parameterName = "Miscelleneous", parameterAmount = 1000 }
+                new AmountSplitParameters { parameterId = 1, parameterName = "Groceries", parameterAmount = 2000, parameterBalance = 0 },
+                new AmountSplitParameters { parameterId = 2, parameterName = "Medical Expenses", parameterAmount = 1000, parameterBalance = 0 },
+                new AmountSplitParameters { parameterId = 3, parameterName = "Travel Expenses", parameterAmount = 800, parameterBalance = 0 },
+                new AmountSplitParameters { parameterId = 4, parameterName = "Utilities - Electricity", parameterAmount = 2000, parameterBalance = 0 },
+                new AmountSplitParameters { parameterId = 5, parameterName = "Movie", parameterAmount = 500, parameterBalance = 0 },
+                new AmountSplitParameters { parameterId = 6, parameterName = "Miscelleneous", parameterAmount = 1000, parameterBalance = 0 }
             );
         }
     }

@@ -29,6 +29,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<decimal>("parameterBalance")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<string>("parameterName")
                         .IsRequired()
                         .HasMaxLength(60);
@@ -38,12 +42,12 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.ToTable("AmountSplitParameters");
 
                     b.HasData(
-                        new { parameterId = 1, parameterAmount = 2000m, parameterName = "Groceries" },
-                        new { parameterId = 2, parameterAmount = 1000m, parameterName = "Medical Expenses" },
-                        new { parameterId = 3, parameterAmount = 800m, parameterName = "Travel Expenses" },
-                        new { parameterId = 4, parameterAmount = 2000m, parameterName = "Utilities - Electricity" },
-                        new { parameterId = 5, parameterAmount = 500m, parameterName = "Movie" },
-                        new { parameterId = 6, parameterAmount = 1000m, parameterName = "Miscelleneous" }
+                        new { parameterId = 1, parameterAmount = 2000m, parameterBalance = 0m, parameterName = "Groceries" },
+                        new { parameterId = 2, parameterAmount = 1000m, parameterBalance = 0m, parameterName = "Medical Expenses" },
+                        new { parameterId = 3, parameterAmount = 800m, parameterBalance = 0m, parameterName = "Travel Expenses" },
+                        new { parameterId = 4, parameterAmount = 2000m, parameterBalance = 0m, parameterName = "Utilities - Electricity" },
+                        new { parameterId = 5, parameterAmount = 500m, parameterBalance = 0m, parameterName = "Movie" },
+                        new { parameterId = 6, parameterAmount = 1000m, parameterBalance = 0m, parameterName = "Miscelleneous" }
                     );
                 });
 
@@ -68,6 +72,42 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.HasKey("depositId");
 
                     b.ToTable("DepositDetails");
+                });
+
+            modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
+                {
+                    b.Property<int>("entryId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("addedBalance")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("depositId");
+
+                    b.Property<int>("parameterId");
+
+                    b.HasKey("entryId");
+
+                    b.HasIndex("depositId");
+
+                    b.HasIndex("parameterId");
+
+                    b.ToTable("ParameterEntry");
+                });
+
+            modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
+                {
+                    b.HasOne("MoneyManager.API.Data.DepositDetails", "depositDetails")
+                        .WithMany()
+                        .HasForeignKey("depositId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MoneyManager.API.Data.AmountSplitParameters", "amountSplitParameters")
+                        .WithMany()
+                        .HasForeignKey("parameterId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

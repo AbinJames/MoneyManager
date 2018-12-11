@@ -2,6 +2,7 @@
 using MoneyManager.API.Data;
 using MoneyManager.API.Data.Services;
 using MoneyManager.API.Data.Services.Context;
+using MoneyManager.API.Data.Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace MoneyManager.API.Web.Controllers
         /// <returns>List of deposit details</returns>
         [HttpGet]
         [Route("GetDeposit")]
-        public IEnumerable<DepositDetails> GetDepositDetails()
+        public IEnumerable<DepositModel> GetDepositDetails()
         {
             return depositService.GetDepositDetails();
         }

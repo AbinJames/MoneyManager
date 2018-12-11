@@ -4,7 +4,7 @@ import { AmountSplitParameter } from '../models/amount-split-parameters.model';
 @Pipe({ name: 'ParameterFilterPipe' })
 
 export class ParameterFilterPipe implements PipeTransform {
-    transform(parameterList: AmountSplitParameter[], parameterName: string, minAmount: number, maxAmount: number, filterEnabled: boolean) {
+    transform(parameterList: AmountSplitParameter[], parameterName: string, minAmount: number, maxAmount: number, minBalance: number, maxBalance: number, filterEnabled: boolean) {
         console.log("\nparameterName " + parameterName
             + "\nminAmount " + minAmount
             + "\nmaxAmount " + maxAmount
@@ -19,6 +19,13 @@ export class ParameterFilterPipe implements PipeTransform {
             parameterList = parameterList.filter(
                 item =>
                     (maxAmount >= item.parameterAmount) && (item.parameterAmount >= minAmount)
+            );
+        }
+        //if parameter balance is not empty, select value satisfying balance filter
+        if (minBalance || maxBalance && (minBalance <= maxBalance)) {
+            parameterList = parameterList.filter(
+                item =>
+                    (maxBalance >= item.parameterBalance) && (item.parameterBalance >= minBalance)
             );
         }
         //if parameterName is not empty the filter parameter by parameterName

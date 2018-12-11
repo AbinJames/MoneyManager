@@ -32,5 +32,13 @@ namespace MoneyManager.API.Data
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public float parameterAmount { get; set; }
+
+        /// <summary>
+        /// Balance amount after division from deposit for parameter
+        /// </summary>
+        [Required]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
+        public float parameterBalance { get; set; }
     }
 }

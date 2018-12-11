@@ -46,6 +46,7 @@
         </div>
         <!-- Amount div end -->
       </th>
+      <th>Balance</th>
     </tr>
     <tr *ngIf="appComponent.filterEnabled"></tr>
     <tr *ngIf="appComponent.filterEnabled">
@@ -60,8 +61,8 @@
           <input type="date" class="form-control" [(ngModel)]="depositEndDate" min="{{minDateLimit}}" max="{{maxDateLimit}}">
         </div>
         <span class="error" *ngIf="depositStartDate>depositEndDate">
-            Min > Max makes little sense
-          </span>
+          Min > Max makes little sense
+        </span>
       </th>
       <th></th>
       <th>
@@ -86,14 +87,55 @@
         <!-- Amount filter end -->
       </th>
     </tr>
-    <tr *ngFor="let deposit of (depositDetails|DepositFilterPipe:depositStartDate:depositEndDate:depositSource:minAmount:maxAmount:appComponent.filterEnabled)">
-      <td>{{deposit.depositId}}</td>
-      <td>{{deposit.depositDate| date: 'dd'}}</td>
-      <td>{{deposit.depositDate| date: 'MMMM'}}</td>
-      <td>{{deposit.depositDate| date: 'yyyy'}}</td>
-      <td>{{deposit.depositTime| date: 'hh:mm a' }}</td>
-      <td>{{deposit.depositSource}}</td>
-      <td><i class="fas fa-rupee-sign"></i>{{deposit.depositAmount}}</td>
-    </tr>
+    <ng-container *ngFor="let deposit of (depositDetails|DepositFilterPipe:depositStartDate:depositEndDate:depositSource:minAmount:maxAmount:appComponent.filterEnabled);let index = index">
+      <tr>
+        <td>{{deposit.depositId}}</td>
+        <td>{{deposit.depositDate| date: 'dd'}}</td>
+        <td>{{deposit.depositDate| date: 'MMMM'}}</td>
+        <td>{{deposit.depositDate| date: 'yyyy'}}</td>
+        <td>{{deposit.depositTime| date: 'hh:mm a' }}</td>
+        <td>{{deposit.depositSource}}</td>
+        <td>{{deposit.depositAmount| currency:'INR':'symbol'}}</td>
+        <td>
+          <!-- toggle button for collapsing parameters -->
+          <button data-toggle="collapse" attr.data-target="#parameter_{{index}}" (click)="toggleCollapseIcon(index)">
+            <span [class]="parameterToggleClicked[index] ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="8">
+          <div id="parameter_{{index}}" class="collapse">
+            <table class="table table-bordered table-hover table-sm">
+              <tr>
+                <th>Id</th>
+                <th>Parameter</th>
+                <th>Added Balance</th>
+              </tr>
+              <tr *ngIf="deposit.entryModels.length == 0">
+                <td>-</td>
+                <td>-</td>
+                <td>0</td>
+              </tr>
+              <tr *ngFor="let entry of deposit.entryModels">
+                <td>{{entry.entryId}}</td>
+                <td>{{entry.parameterName}}</td>
+                <td>{{entry.addedBalance}}</td>
+              </tr>
+              <tr class="table-info">
+                <th></th>
+                <th>Total : <i class="fas fa-rupee-sign"></i>{{sumOfBalance[index]}}</th>
+                <th>Balance : {{(deposit.depositAmount - sumOfBalance[index])| currency:'INR':'symbol'}}</th>
+              </tr>
+              <tr class="table-info">
+                <th>Electronics Savings : {{(deposit.depositAmount - sumOfBalance[index])/3| currency:'INR':'symbol'}}</th>
+                <th>Loan : {{(deposit.depositAmount - sumOfBalance[index])/3| currency:'INR':'symbol'}}</th>
+                <th>Fixed Savings : {{(deposit.depositAmount - sumOfBalance[index])/3| currency:'INR':'symbol'}}</th>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
   </table>
 </div>
