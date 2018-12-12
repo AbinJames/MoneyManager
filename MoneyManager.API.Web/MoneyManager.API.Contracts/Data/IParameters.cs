@@ -7,7 +7,7 @@ namespace MoneyManager.API.Contracts.Data
     /// <summary>
     /// Parameters by which deposited amount is split
     /// </summary>
-    public interface IAmountSplitParameters
+    public interface IParameters
     {
         /// <summary>
         /// id for each of the parameters

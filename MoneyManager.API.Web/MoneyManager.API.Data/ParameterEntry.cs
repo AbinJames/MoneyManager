@@ -23,7 +23,7 @@ namespace MoneyManager.API.Data
         /// id of parameter for which amount was added
         /// </summary>
         public int parameterId { get; set; }
-        public virtual AmountSplitParameters amountSplitParameters { get; set; }
+        public virtual Parameters amountSplitParameters { get; set; }
 
         /// <summary>
         /// id of deposit from which balance was subtracted

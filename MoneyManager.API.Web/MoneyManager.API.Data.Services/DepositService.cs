@@ -30,7 +30,7 @@ namespace MoneyManager.API.Data.Services
         {
             //Get list of entries and store in ParameterModel
             var entryList = (from entry in moneyManagerContext.ParameterEntry
-                             join parameter in moneyManagerContext.AmountSplitParameters
+                             join parameter in moneyManagerContext.Parameters
                              on entry.parameterId equals parameter.parameterId
                              select new EntryModel()
                              {
@@ -51,7 +51,7 @@ namespace MoneyManager.API.Data.Services
                        depositSource = deposit.depositSource,
                        entryModels = (from entryData in moneyManagerContext.ParameterEntry
                                       where entryData.depositId == deposit.depositId
-                                      join parameter in moneyManagerContext.AmountSplitParameters
+                                      join parameter in moneyManagerContext.Parameters
                                       on entryData.parameterId equals parameter.parameterId
                                       select new EntryModel()
                                       {
@@ -74,7 +74,7 @@ namespace MoneyManager.API.Data.Services
             moneyManagerContext.DepositDetails.Add(depositDetails);
             //get list of all parameters that have amount less than balane
             //order by balance with lowest first
-            var parameterList = moneyManagerContext.AmountSplitParameters
+            var parameterList = moneyManagerContext.Parameters
                                 .Where(parameter => parameter.parameterBalance < parameter.parameterAmount)
                                 .OrderBy(parameter => parameter.parameterBalance)
                                 .ToList();
@@ -82,17 +82,19 @@ namespace MoneyManager.API.Data.Services
             //add amount to balance from deposit and save changes
             foreach (var parameter in parameterList)
             {
-                if ((balance - parameter.parameterAmount) >= 0)
+                var amountToBeAdded = parameter.parameterAmount - parameter.parameterBalance;
+                var amountThatCanBeAdded = balance <= amountToBeAdded ? balance : amountToBeAdded;
+                if (amountToBeAdded > (0.25 * parameter.parameterAmount))
                 {
                     ParameterEntry parameterEntry = new ParameterEntry()
                     {
                         parameterId = parameter.parameterId,
                         depositId = depositDetails.depositId,
-                        addedBalance = parameter.parameterAmount - parameter.parameterBalance
+                        addedBalance = amountThatCanBeAdded
                     };
                     moneyManagerContext.ParameterEntry.Add(parameterEntry);
-                    parameter.parameterBalance = parameter.parameterBalance + (parameter.parameterAmount - parameter.parameterBalance);
-                    balance = balance - (parameter.parameterAmount - parameter.parameterBalance);
+                    parameter.parameterBalance = parameter.parameterBalance + amountThatCanBeAdded;
+                    balance = balance - amountThatCanBeAdded;
                     moneyManagerContext.Entry(parameter).State = EntityState.Modified;
                 }
             }

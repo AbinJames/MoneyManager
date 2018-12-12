@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AmountSplitParameter } from '../models/amount-split-parameters.model';
+import { Parameters } from '../models/parameters.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -26,8 +26,8 @@ export class ParameterService {
   //   });
   // }
 
-  getParameters():Observable<AmountSplitParameter[]>{
+  getParameters():Observable<Parameters[]>{
     //returns list of deposit details from api
-    return this.httpClient.get<AmountSplitParameter[]>(this.baseUrl+'GetParameters');
+    return this.httpClient.get<Parameters[]>(this.baseUrl+'GetParameters');
   }
 }

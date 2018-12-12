@@ -17,7 +17,14 @@ export class AddDepositComponent implements OnInit {
   depositDetails: DepositDetails;
   currentTime: string;
   currentDate: string
+
   ngOnInit() {
+    //initialize reactive form controls
+    this.initializeForm();
+  }
+
+  //Function to initialize reactive form
+  initializeForm(): void {
     //Set deposit form with controls for
     //depositname, depositdate, and depositamount
     this.currentTime = this.datePipe.transform(new Date().toLocaleString(), "HH:mm");
@@ -31,7 +38,8 @@ export class AddDepositComponent implements OnInit {
       depositAmount: ['', [Validators.required]]
     });
   }
-
+  
+  //Funtion to send data to serverside through service
   saveDeposit(depositForm: FormGroup): void {
     console.log(JSON.stringify(depositForm.value));
     this.depositDetails = depositForm.value;

@@ -63,7 +63,9 @@
       <td>{{parameter.parameterId}}</td>
       <td>{{parameter.parameterName}}</td>
       <td>{{parameter.parameterAmount| currency:'INR':'symbol'}}</td>
-      <td>{{parameter.parameterBalance| currency:'INR':'symbol'}}</td>
+      <td [class]="parameter.parameterBalance>(0.25*parameter.parameterAmount)?'safe':parameter.parameterBalance>0?'low':'error'">
+        {{parameter.parameterBalance| currency:'INR':'symbol'}}
+      </td>
     </tr>
   </table>
 </div>>

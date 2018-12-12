@@ -8,6 +8,8 @@ import { DepositService } from './deposit/deposit.service';
 import { DatePipe } from '@angular/common';
 import { ParameterService } from './parameters/parameter.service';
 import { ParametersModule } from './parameters/parameters.module';
+import { ExpensesModule } from './expenses/expenses.module';
+import { ExpenseService } from './expenses/expense.service';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { ParametersModule } from './parameters/parameters.module';
     AppRoutingModule,
     HttpClientModule,
     DepositModule,
-    ParametersModule
+    ParametersModule,
+    ExpensesModule
   ],
   providers: [
     AppComponent,
     DepositService,
     ParameterService,
+    ExpenseService,
     DatePipe
   ],
   bootstrap: [AppComponent]

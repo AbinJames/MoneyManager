@@ -16,13 +16,13 @@ namespace MoneyManager.API.Data.Services.Context
         /// <param name="modelBuilder">builder parameter from context</param>
         public static void SeedData(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AmountSplitParameters>().HasData(
-                new AmountSplitParameters { parameterId = 1, parameterName = "Groceries", parameterAmount = 2000, parameterBalance = 0 },
-                new AmountSplitParameters { parameterId = 2, parameterName = "Medical Expenses", parameterAmount = 1000, parameterBalance = 0 },
-                new AmountSplitParameters { parameterId = 3, parameterName = "Travel Expenses", parameterAmount = 800, parameterBalance = 0 },
-                new AmountSplitParameters { parameterId = 4, parameterName = "Utilities - Electricity", parameterAmount = 2000, parameterBalance = 0 },
-                new AmountSplitParameters { parameterId = 5, parameterName = "Movie", parameterAmount = 500, parameterBalance = 0 },
-                new AmountSplitParameters { parameterId = 6, parameterName = "Miscelleneous", parameterAmount = 1000, parameterBalance = 0 }
+            modelBuilder.Entity<Parameters>().HasData(
+                new Parameters { parameterId = 1, parameterName = "Groceries", parameterAmount = 2000, parameterBalance = 0 },
+                new Parameters { parameterId = 2, parameterName = "Medical Expenses", parameterAmount = 1000, parameterBalance = 0 },
+                new Parameters { parameterId = 3, parameterName = "Travel Expenses", parameterAmount = 800, parameterBalance = 0 },
+                new Parameters { parameterId = 4, parameterName = "Utilities - Electricity", parameterAmount = 2000, parameterBalance = 0 },
+                new Parameters { parameterId = 5, parameterName = "Movie", parameterAmount = 500, parameterBalance = 0 },
+                new Parameters { parameterId = 6, parameterName = "Miscelleneous", parameterAmount = 1000, parameterBalance = 0 }
             );
         }
     }

@@ -29,7 +29,7 @@ namespace MoneyManager.API.Web.Controllers
         /// <returns>list of parameters</returns>
         [HttpGet]
         [Route("GetParameters")]
-        public IEnumerable<AmountSplitParameters> GetAmountSplitParameters()
+        public IEnumerable<Parameters> GetAmountSplitParameters()
         {
             return parameterService.GetAmountSplitParameters();
         }

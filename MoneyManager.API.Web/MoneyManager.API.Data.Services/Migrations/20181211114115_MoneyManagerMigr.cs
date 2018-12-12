@@ -9,21 +9,6 @@ namespace MoneyManager.API.Data.Services.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AmountSplitParameters",
-                columns: table => new
-                {
-                    parameterId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    parameterName = table.Column<string>(maxLength: 60, nullable: false),
-                    parameterAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    parameterBalance = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AmountSplitParameters", x => x.parameterId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DepositDetails",
                 columns: table => new
                 {
@@ -37,6 +22,44 @@ namespace MoneyManager.API.Data.Services.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DepositDetails", x => x.depositId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Parameters",
+                columns: table => new
+                {
+                    parameterId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    parameterName = table.Column<string>(maxLength: 60, nullable: false),
+                    parameterAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    parameterBalance = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Parameters", x => x.parameterId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Expense",
+                columns: table => new
+                {
+                    expenseId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    expenseDetails = table.Column<string>(maxLength: 60, nullable: false),
+                    parameterId = table.Column<int>(nullable: false),
+                    expenseDate = table.Column<DateTime>(nullable: false),
+                    expenseTime = table.Column<DateTime>(nullable: false),
+                    expenseAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Expense", x => x.expenseId);
+                    table.ForeignKey(
+                        name: "FK_Expense_Parameters_parameterId",
+                        column: x => x.parameterId,
+                        principalTable: "Parameters",
+                        principalColumn: "parameterId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,15 +82,15 @@ namespace MoneyManager.API.Data.Services.Migrations
                         principalColumn: "depositId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ParameterEntry_AmountSplitParameters_parameterId",
+                        name: "FK_ParameterEntry_Parameters_parameterId",
                         column: x => x.parameterId,
-                        principalTable: "AmountSplitParameters",
+                        principalTable: "Parameters",
                         principalColumn: "parameterId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "AmountSplitParameters",
+                table: "Parameters",
                 columns: new[] { "parameterId", "parameterAmount", "parameterBalance", "parameterName" },
                 values: new object[,]
                 {
@@ -78,6 +101,11 @@ namespace MoneyManager.API.Data.Services.Migrations
                     { 5, 500m, 0m, "Movie" },
                     { 6, 1000m, 0m, "Miscelleneous" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expense_parameterId",
+                table: "Expense",
+                column: "parameterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ParameterEntry_depositId",
@@ -93,13 +121,16 @@ namespace MoneyManager.API.Data.Services.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Expense");
+
+            migrationBuilder.DropTable(
                 name: "ParameterEntry");
 
             migrationBuilder.DropTable(
                 name: "DepositDetails");
 
             migrationBuilder.DropTable(
-                name: "AmountSplitParameters");
+                name: "Parameters");
         }
     }
 }

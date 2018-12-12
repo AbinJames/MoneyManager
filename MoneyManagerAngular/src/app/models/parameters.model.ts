@@ -1,4 +1,4 @@
-export class AmountSplitParameter{
+export class Parameters{
     parameterId:number;
     parameterName:string;
     parameterAmount:number;

@@ -24,9 +24,9 @@ namespace MoneyManager.API.Data.Services
         /// Get list of parameters and their amounts
         /// </summary>
         /// <returns>list of parameters</returns>
-        public IEnumerable<AmountSplitParameters> GetAmountSplitParameters()
+        public IEnumerable<Parameters> GetAmountSplitParameters()
         {
-            return moneyManagerContext.AmountSplitParameters;
+            return moneyManagerContext.Parameters;
         }
     }
 }
