@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   expenseList: Expense[];
   parameterList: Parameters[];
 
+  totalbalance:number;
+  total
   ngOnInit() {
   }
 
