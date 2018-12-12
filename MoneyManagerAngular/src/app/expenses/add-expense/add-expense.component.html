@@ -54,7 +54,7 @@
       It is disabled if any validation error is present -->
       <button type="submit" class="btn btn-success" [disabled]="expenseForm.invalid">Save</button>
       <div class="float-right">
-        <a href="view-expense" class="btn btn-outline-dark">Cancel</a>
+        <a [routerLink]="['/view-expense']" class="btn btn-outline-dark">Cancel</a>
       </div>
     </form>
   </div>

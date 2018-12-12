@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'view-parameter', component: ViewParameterComponent },
   { path: 'add-expense', component: AddExpenseComponent },
   { path: 'view-expense', component: ViewExpenseComponent },
-  { path: '', redirectTo: '/view-deposit', pathMatch: 'full' }
+  { path: '', redirectTo: '/view-parameter', pathMatch: 'full' }
 ];
 
 @NgModule({

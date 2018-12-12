@@ -10,6 +10,8 @@ import { ParameterService } from './parameters/parameter.service';
 import { ParametersModule } from './parameters/parameters.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { ExpenseService } from './expenses/expense.service';
+import { NavbarModule } from './navbar/navbar.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ExpenseService } from './expenses/expense.service';
     HttpClientModule,
     DepositModule,
     ParametersModule,
-    ExpensesModule
+    ExpensesModule,
+    NavbarModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AppComponent,

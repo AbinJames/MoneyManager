@@ -2,7 +2,7 @@
   Savings remaining : {{totalDeposit}} - {{totalBalance}} = {{(totalDeposit - totalBalance)/3}}
   <div class="float-right">
     <!-- navigate to create component on click -->
-    <a class="btn btn-link " href="add-parameter"><span class="fa fa-plus">Add New Parameter</span></a>
+    <a class="btn btn-link " [routerLink]="['/add-parameter']"><span class="fa fa-plus">Add New Parameter</span></a>
   </div>
   <div class="float-right">
     <!-- navigate to filter component on click -->
@@ -68,4 +68,4 @@
       </td>
     </tr>
   </table>
-</div>>
+</div>

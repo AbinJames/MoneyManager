@@ -41,7 +41,7 @@
     It is disabled if any validation error is present -->
     <button type="submit" class="btn btn-success" [disabled]="depositForm.invalid">Save</button>
     <div class="float-right">
-      <a href="view-deposit" class="btn btn-outline-dark">Cancel</a>
+      <a [routerLink]="['/view-deposit']" class="btn btn-outline-dark">Cancel</a>
     </div>
   </form>
 </div>
