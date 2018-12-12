@@ -15,7 +15,7 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>MoneyManagerAngular</span>
+      <span [routerLink]="['/view-home']">Money Manager</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

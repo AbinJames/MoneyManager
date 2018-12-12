@@ -13,7 +13,7 @@ namespace MoneyManager.API.Web.Controllers
     /// Controller for calling parameter operations
     /// </summary>
     [Produces("application/json")]
-    [Route("api/MoneyManager/AmountSplitParameter/")]
+    [Route("api/MoneyManager/Parameters/")]
     [ApiController]
     public class ParameterController : ControllerBase
     {
@@ -21,6 +21,24 @@ namespace MoneyManager.API.Web.Controllers
         public ParameterController(MoneyManagerContext moneyManagerContext)
         {
             parameterService = new ParameterService(moneyManagerContext);
+        }
+
+        /// <summary>
+        /// Add parameter details to database through service
+        /// </summary>
+        /// <param name="Parameters">Data from clientside</param>
+        /// <returns>No content or error</returns>
+        [HttpPost]
+        [Route("AddParameter")]
+        public IActionResult AddParamter(Parameters parameter)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            parameterService.AddParameter(parameter);
+            return NoContent();
         }
 
         /// <summary>

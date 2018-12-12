@@ -28,5 +28,17 @@ namespace MoneyManager.API.Data.Services
         {
             return moneyManagerContext.Parameters;
         }
+
+        /// <summary>
+        /// Adds parameter details to database
+        /// </summary>
+        /// <param name="Parameters">
+        /// All details stored as class object
+        /// </param>
+        public void AddParameter(Parameters parameter)
+        {
+            moneyManagerContext.Parameters.Add(parameter);
+            moneyManagerContext.SaveChanges();
+        }
     }
 }

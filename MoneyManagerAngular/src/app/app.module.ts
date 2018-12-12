@@ -12,6 +12,7 @@ import { ExpensesModule } from './expenses/expenses.module';
 import { ExpenseService } from './expenses/expense.service';
 import { NavbarModule } from './navbar/navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomePageModule } from './navbar/home-page/home-page.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ParametersModule,
     ExpensesModule,
     NavbarModule,
+    HomePageModule,
     BrowserAnimationsModule
   ],
   providers: [

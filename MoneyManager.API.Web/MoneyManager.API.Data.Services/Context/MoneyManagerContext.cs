@@ -22,6 +22,8 @@ namespace MoneyManager.API.Data.Services.Context
         public DbSet<Parameters> Parameters { get; set; }
         public DbSet<ParameterEntry> ParameterEntry { get; set; }
         public DbSet<Expense> Expense { get; set; }
+        public DbSet<Loan> Loan { get; set; }
+        public DbSet<LoanPayment> LoanPayment { get; set; }
 
         /// <summary>
         /// Function to execute action during data migrations
