@@ -17,13 +17,61 @@ namespace MoneyManager.API.Data.Services.Context
 
         }
 
-        //Set DbSet for following classes to access from database
-        public DbSet<DepositDetails> DepositDetails { get; set; }
+        /// <summary>
+        /// Gets or sets the deposit.
+        /// </summary>
+        /// <value>
+        /// The deposit.
+        /// </value>
+        public DbSet<Deposit> Deposit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parameters.
+        /// </summary>
+        /// <value>
+        /// The parameters.
+        /// </value>
         public DbSet<Parameters> Parameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parameter entry.
+        /// </summary>
+        /// <value>
+        /// The parameter entry.
+        /// </value>
         public DbSet<ParameterEntry> ParameterEntry { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expense.
+        /// </summary>
+        /// <value>
+        /// The expense.
+        /// </value>
         public DbSet<Expense> Expense { get; set; }
+
+        /// <summary>
+        /// Gets or sets the loan.
+        /// </summary>
+        /// <value>
+        /// The loan.
+        /// </value>
         public DbSet<Loan> Loan { get; set; }
+
+        /// <summary>
+        /// Gets or sets the loan payment.
+        /// </summary>
+        /// <value>
+        /// The loan payment.
+        /// </value>
         public DbSet<LoanPayment> LoanPayment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the savings parameters.
+        /// </summary>
+        /// <value>
+        /// The savings parameters.
+        /// </value>
+        public DbSet<SavingsParameters> SavingsParameters { get; set; }
 
         /// <summary>
         /// Function to execute action during data migrations

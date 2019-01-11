@@ -16,14 +16,14 @@ namespace MoneyManager.API.Data
         /// id for each of the parameters
         /// </summary>
         [Key]
-        public int parameterId { get; set; }
+        public long ParameterId { get; set; }
 
         /// <summary>
         /// Name of the parameter
         /// </summary>
         [Required]
         [StringLength(60, MinimumLength = 3)]
-        public string parameterName { get; set; }
+        public string ParameterName { get; set; }
 
         /// <summary>
         /// Amount to be taken from deposit for parameter
@@ -31,7 +31,7 @@ namespace MoneyManager.API.Data
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public float parameterAmount { get; set; }
+        public float ParameterAmount { get; set; }
 
         /// <summary>
         /// Balance amount after division from deposit for parameter
@@ -39,6 +39,6 @@ namespace MoneyManager.API.Data
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public float parameterBalance { get; set; }
+        public float ParameterBalance { get; set; }
     }
 }

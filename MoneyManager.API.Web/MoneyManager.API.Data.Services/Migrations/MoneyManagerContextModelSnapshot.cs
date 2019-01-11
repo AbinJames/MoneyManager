@@ -19,130 +19,229 @@ namespace MoneyManager.API.Data.Services.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MoneyManager.API.Data.DepositDetails", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.Deposit", b =>
                 {
-                    b.Property<int>("depositId")
+                    b.Property<long>("DepositId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("depositAmount")
+                    b.Property<decimal>("DepositAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<DateTime>("depositDate");
+                    b.Property<DateTime>("DepositDate");
 
-                    b.Property<string>("depositSource")
+                    b.Property<string>("DepositSource")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<DateTime>("depositTime");
+                    b.Property<DateTime>("DepositTime");
 
-                    b.HasKey("depositId");
+                    b.HasKey("DepositId");
 
-                    b.ToTable("DepositDetails");
+                    b.ToTable("Deposit");
                 });
 
             modelBuilder.Entity("MoneyManager.API.Data.Expense", b =>
                 {
-                    b.Property<int>("expenseId")
+                    b.Property<long>("ExpenseId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("expenseAmount")
+                    b.Property<decimal>("ExpenseAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<DateTime>("expenseDate");
+                    b.Property<DateTime>("ExpenseDate");
 
-                    b.Property<string>("expenseDetails")
+                    b.Property<string>("ExpenseDetails")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<DateTime>("expenseTime");
+                    b.Property<DateTime>("ExpenseTime");
 
-                    b.Property<int>("parameterId");
+                    b.Property<bool>("IsSavingsParameter");
 
-                    b.HasKey("expenseId");
+                    b.Property<long?>("ParameterId");
 
-                    b.HasIndex("parameterId");
+                    b.Property<long?>("SavingsParameterId");
+
+                    b.HasKey("ExpenseId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.HasIndex("SavingsParameterId");
 
                     b.ToTable("Expense");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.Loan", b =>
                 {
-                    b.Property<int>("entryId")
+                    b.Property<long>("LoanId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("addedBalance")
+                    b.Property<bool>("IsLoanOwedToYou");
+
+                    b.Property<bool>("IsLoanPayed");
+
+                    b.Property<decimal>("LoanAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int>("depositId");
+                    b.Property<string>("LoanDetails")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
-                    b.Property<int>("parameterId");
+                    b.Property<DateTime>("LoanEndDate");
 
-                    b.HasKey("entryId");
+                    b.Property<string>("LoanPerson")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
-                    b.HasIndex("depositId");
+                    b.Property<DateTime>("LoanStartDate");
 
-                    b.HasIndex("parameterId");
+                    b.HasKey("LoanId");
+
+                    b.ToTable("Loan");
+                });
+
+            modelBuilder.Entity("MoneyManager.API.Data.LoanPayment", b =>
+                {
+                    b.Property<long>("LoanPaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("LoanId");
+
+                    b.Property<float>("LoanPaymentAmount");
+
+                    b.Property<DateTime>("LoanPaymentDate");
+
+                    b.HasKey("LoanPaymentId");
+
+                    b.HasIndex("LoanId");
+
+                    b.ToTable("LoanPayment");
+                });
+
+            modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
+                {
+                    b.Property<long>("EntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("AddedBalance")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<long>("DepositId");
+
+                    b.Property<bool>("IsSavingsParameter");
+
+                    b.Property<long?>("ParameterId");
+
+                    b.Property<long?>("SavingsParameterId");
+
+                    b.HasKey("EntryId");
+
+                    b.HasIndex("DepositId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.HasIndex("SavingsParameterId");
 
                     b.ToTable("ParameterEntry");
                 });
 
             modelBuilder.Entity("MoneyManager.API.Data.Parameters", b =>
                 {
-                    b.Property<int>("parameterId")
+                    b.Property<long>("ParameterId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("parameterAmount")
+                    b.Property<decimal>("ParameterAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<decimal>("parameterBalance")
+                    b.Property<decimal>("ParameterBalance")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<string>("parameterName")
+                    b.Property<string>("ParameterName")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.HasKey("parameterId");
+                    b.HasKey("ParameterId");
 
                     b.ToTable("Parameters");
 
                     b.HasData(
-                        new { parameterId = 1, parameterAmount = 2000m, parameterBalance = 0m, parameterName = "Groceries" },
-                        new { parameterId = 2, parameterAmount = 1000m, parameterBalance = 0m, parameterName = "Medical Expenses" },
-                        new { parameterId = 3, parameterAmount = 800m, parameterBalance = 0m, parameterName = "Travel Expenses" },
-                        new { parameterId = 4, parameterAmount = 2000m, parameterBalance = 0m, parameterName = "Utilities - Electricity" },
-                        new { parameterId = 5, parameterAmount = 500m, parameterBalance = 0m, parameterName = "Movie" },
-                        new { parameterId = 6, parameterAmount = 1000m, parameterBalance = 0m, parameterName = "Miscelleneous" }
+                        new { ParameterId = 1L, ParameterAmount = 2000m, ParameterBalance = 0m, ParameterName = "Groceries" },
+                        new { ParameterId = 2L, ParameterAmount = 1000m, ParameterBalance = 0m, ParameterName = "Medical Expenses" },
+                        new { ParameterId = 3L, ParameterAmount = 800m, ParameterBalance = 0m, ParameterName = "Travel Expenses" },
+                        new { ParameterId = 4L, ParameterAmount = 2000m, ParameterBalance = 0m, ParameterName = "Utilities - Electricity" },
+                        new { ParameterId = 5L, ParameterAmount = 500m, ParameterBalance = 0m, ParameterName = "Movie" },
+                        new { ParameterId = 6L, ParameterAmount = 1000m, ParameterBalance = 0m, ParameterName = "Miscelleneous" }
+                    );
+                });
+
+            modelBuilder.Entity("MoneyManager.API.Data.SavingsParameters", b =>
+                {
+                    b.Property<long>("SavingsParameterId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("SavingsParameterBalance");
+
+                    b.Property<string>("SavingsParameterName")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.HasKey("SavingsParameterId");
+
+                    b.ToTable("SavingsParameters");
+
+                    b.HasData(
+                        new { SavingsParameterId = 1L, SavingsParameterBalance = 0f, SavingsParameterName = "Main Savings" },
+                        new { SavingsParameterId = 2L, SavingsParameterBalance = 0f, SavingsParameterName = "Shopping" },
+                        new { SavingsParameterId = 3L, SavingsParameterBalance = 0f, SavingsParameterName = "Loan" }
                     );
                 });
 
             modelBuilder.Entity("MoneyManager.API.Data.Expense", b =>
                 {
-                    b.HasOne("MoneyManager.API.Data.Parameters", "amountSplitParameters")
+                    b.HasOne("MoneyManager.API.Data.Parameters", "Parameters")
                         .WithMany()
-                        .HasForeignKey("parameterId")
+                        .HasForeignKey("ParameterId");
+
+                    b.HasOne("MoneyManager.API.Data.SavingsParameters", "SavingsParameters")
+                        .WithMany()
+                        .HasForeignKey("SavingsParameterId");
+                });
+
+            modelBuilder.Entity("MoneyManager.API.Data.LoanPayment", b =>
+                {
+                    b.HasOne("MoneyManager.API.Data.Loan", "Loan")
+                        .WithMany()
+                        .HasForeignKey("LoanId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
                 {
-                    b.HasOne("MoneyManager.API.Data.DepositDetails", "depositDetails")
+                    b.HasOne("MoneyManager.API.Data.Deposit", "deposits")
                         .WithMany()
-                        .HasForeignKey("depositId")
+                        .HasForeignKey("DepositId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MoneyManager.API.Data.Parameters", "amountSplitParameters")
+                    b.HasOne("MoneyManager.API.Data.Parameters", "Parameters")
                         .WithMany()
-                        .HasForeignKey("parameterId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ParameterId");
+
+                    b.HasOne("MoneyManager.API.Data.SavingsParameters", "SavingsParameters")
+                        .WithMany()
+                        .HasForeignKey("SavingsParameterId");
                 });
 #pragma warning restore 612, 618
         }

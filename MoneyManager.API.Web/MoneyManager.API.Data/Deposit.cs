@@ -5,34 +5,34 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MoneyManager.API.Data
 {
-    public class DepositDetails : IDepositDetails
+    public class Deposit : IDeposit
     {
         /// <summary>
         /// Id for amount deposited
         /// </summary>
         [Key]
-        public int depositId { get; set; }
+        public long DepositId { get; set; }
 
         /// <summary>
         /// Source of money
         /// </summary>
         [Required]
         [StringLength(60, MinimumLength = 3)]
-        public string depositSource { get; set; }
+        public string DepositSource { get; set; }
 
         /// <summary>
         /// Date money is deposited
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        public DateTime depositDate { get; set; }
+        public DateTime DepositDate { get; set; }
 
         /// <summary>
         /// Estimated time when amount was deposited
         /// </summary>
         [Required]
         [DataType(DataType.Time)]
-        public DateTime depositTime { get; set; }
+        public DateTime DepositTime { get; set; }
 
         /// <summary>
         /// Amount deposited
@@ -40,6 +40,6 @@ namespace MoneyManager.API.Data
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public float depositAmount { get; set; }
+        public float DepositAmount { get; set; }
     }
 }

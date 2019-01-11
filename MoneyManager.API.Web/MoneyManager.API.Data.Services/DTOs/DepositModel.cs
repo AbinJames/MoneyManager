@@ -12,31 +12,31 @@ namespace MoneyManager.API.Data.Services.DTOs
         /// <summary>
         /// Id for amount deposited
         /// </summary>
-        public int depositId { get; set; }
+        public long DepositId { get; set; }
 
         /// <summary>
         /// Source of money
         /// </summary>
-        public string depositSource { get; set; }
+        public string DepositSource { get; set; }
 
         /// <summary>
         /// Date money is deposited
         /// </summary>
-        public DateTime depositDate { get; set; }
+        public DateTime DepositDate { get; set; }
 
         /// <summary>
         /// Estimated time when amount was deposited
         /// </summary>
-        public DateTime depositTime { get; set; }
+        public DateTime DepositTime { get; set; }
 
         /// <summary>
         /// Amount deposited
         /// </summary>
-        public float depositAmount { get; set; }
+        public float DepositAmount { get; set; }
 
         /// <summary>
         /// List of entries for each deposit
         /// </summary>
-        public IEnumerable<EntryModel> entryModels { get; set; }
+        public IEnumerable<EntryModel> EntryModels { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DepositService } from '../deposit.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DepositDetails } from 'src/app/models/deposit-details.model';
+import { Deposit } from 'src/app/models/deposit.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class AddDepositComponent implements OnInit {
   constructor(private depositService: DepositService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
 
   depositForm: FormGroup;
-  depositDetails: DepositDetails;
+  depositDetails: Deposit;
   currentTime: string;
   currentDate: string
 

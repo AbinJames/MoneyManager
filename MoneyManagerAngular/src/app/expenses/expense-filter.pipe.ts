@@ -4,7 +4,7 @@ import { Expense } from '../models/expense.model';
 @Pipe({ name: 'ExpenseFilterPipe' })
 
 export class ExpenseFilterPipe implements PipeTransform {
-    transform(expenseList: Expense[], expenseStartDate: Date, expenseEndDate: Date, expenseDetails: string, minAmount: number, maxAmount: number, filterEnabled: boolean) {
+    transform(expenseList: Expense[], expenseStartDate: Date, expenseEndDate: Date, expenseDetails: string, minAmount: number, maxAmount: number, isSavingsParameter: number, parameterId: number, filterEnabled: boolean) {
         console.log("expenseStartDate " + expenseStartDate
             + "\nexpenseEndDate " + expenseEndDate
             + "\nexpenseDetails " + expenseDetails
@@ -13,6 +13,10 @@ export class ExpenseFilterPipe implements PipeTransform {
             + "\nfilterEnabled " + filterEnabled);
         //return original list if filtered button is not clicked
         if (!filterEnabled) {
+            return expenseList;
+        }
+
+        if (isSavingsParameter && isSavingsParameter == -1) {
             return expenseList;
         }
 
@@ -39,6 +43,28 @@ export class ExpenseFilterPipe implements PipeTransform {
                     item.expenseDetails.toLowerCase().includes(
                         expenseDetails.toLowerCase()
                     )
+            );
+        }
+
+        //if expenseDetails is not empty the filter expense by expenseDetails
+        if (isSavingsParameter && isSavingsParameter != -1) {
+            expenseList = expenseList.filter(
+                item =>
+                    item.isSavingsParameter == (isSavingsParameter == 1 ? true : false)
+            );
+        }
+
+        if (parameterId && isSavingsParameter == 0) {
+            expenseList = expenseList.filter(
+                item =>
+                    item.parameterId == parameterId
+            );
+        }
+
+        if (parameterId && isSavingsParameter == 1) {
+            expenseList = expenseList.filter(
+                item =>
+                    item.savingsParameterId == parameterId
             );
         }
         //return filtered list

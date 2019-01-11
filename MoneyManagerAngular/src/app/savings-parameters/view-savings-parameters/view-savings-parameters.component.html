@@ -1,0 +1,71 @@
+<div class="container">
+  Savings remaining : {{totalDeposit}} - {{totalBalance}} = {{(totalDeposit - totalBalance)/3}}
+  <div class="float-right">
+    <!-- navigate to create component on click -->
+    <a class="btn btn-link " [routerLink]="['/add-savings-parameters']"><span class="fa fa-plus">Add New Parameter</span></a>
+  </div>
+  <div class="float-right">
+    <!-- navigate to filter component on click -->
+    <a class="btn btn-link" (click)="appComponent.toggleFilter()">
+      <span class="fa fa-filter" *ngIf="!appComponent.filterEnabled">Filter</span>
+      <span class="fa fa-filter" *ngIf="appComponent.filterEnabled">Stop Filtering</span>
+    </a>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Balance</th>
+    </tr>
+    <tr *ngIf="appComponent.filterEnabled"></tr>
+    <tr *ngIf="appComponent.filterEnabled">
+      <th></th>
+      <th>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="savingsParameterName">
+        </div>
+      </th>
+      <th>
+        <!-- Amount filter start -->
+        <div class="form-group">
+          <label class="control-label"><span>Min : {{ minAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="minAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+        </div>
+        <div class="form-group">
+          <label class="control-label"><span>Max :{{ maxAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="maxAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+          <!-- Shows error message if range is incorrect-->
+          <span class="error" *ngIf="minAmount>maxAmount">
+            Min > Max makes little sense
+          </span>
+        </div>
+        <!-- Amount filter end -->
+      </th>
+      <th>
+          <!-- Amount filter start -->
+          <div class="form-group">
+            <label class="control-label"><span>Min :{{ minBalance}}</span></label>
+            <input class="form-control" [(ngModel)]="minBalance" type="range" min="0" max="{{maxBalanceLimit}}" numeric>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><span>Max :{{ maxBalance}}</span></label>
+            <input class="form-control" [(ngModel)]="maxBalance" type="range" min="0" max="{{maxBalanceLimit}}" numeric>
+            <!-- Shows error message if range is incorrect-->
+            <span class="error" *ngIf="minBalance>maxBalance">
+              Min > Max makes little sense
+            </span>
+          </div>
+          <!-- Amount filter end -->
+        </th>
+    </tr>
+    <tr *ngFor="let savingsParameter of (savingsParameterList|SavingsParameterFilterPipe:savingsParameterName:minAmount:maxAmount:minBalance:maxBalance:appComponent.filterEnabled)">
+      <td>{{savingsParameter.savingsParameterId}}</td>
+      <td>{{savingsParameter.savingsParameterName}}</td>
+      <td>{{savingsParameter.savingsParameterAmount| currency:'INR':'symbol'}}</td>
+      <td [class]="savingsParameter.savingsParameterBalance>(0.25*savingsParameter.savingsParameterAmount)?'safe':savingsParameter.savingsParameterBalance>0?'low':'error'">
+        {{savingsParameter.savingsParameterBalance| currency:'INR':'symbol'}}
+      </td>
+    </tr>
+  </table>
+</div>

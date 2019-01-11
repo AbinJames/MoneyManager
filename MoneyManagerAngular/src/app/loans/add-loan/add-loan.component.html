@@ -1,0 +1,63 @@
+<div class="container">
+  <form [formGroup]="loanForm" (ngSubmit)="saveLoan(loanForm)">
+    <!-- Form control for loanName -->
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Loan Details<span style="color: red">*</span></label>
+      <input type="text" class="form-control" formControlName="loanDetails">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="loanForm.get('loanDetails').invalid && loanForm.get('loanDetails').touched">
+        Details is required
+      </span>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Loan Person<span style="color: red">*</span></label>
+      <input type="text" class="form-control" formControlName="loanPerson">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="loanForm.get('loanPerson').invalid && loanForm.get('loanPerson').touched">
+        Person is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Loan Start Date<span style="color: red">*</span></label>
+      <input type="date" id="myDate" class="form-control" formControlName="loanStartDate" value="{{currentDate}}">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="loanForm.get('loanStartDate').invalid && loanForm.get('loanStartDate').touched">
+        Start Date is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Loan End Date<span style="color: red">*</span></label>
+      <input type="date" id="myDate" class="form-control" formControlName="loanEndDate" value="{{currentDate}}">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="loanForm.get('loanEndDate').invalid && loanForm.get('loanEndDate').touched">
+        Start Date is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Amount<span style="color: red">*</span></label>
+      <input type="number" class="form-control" formControlName="loanAmount">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="loanForm.get('loanAmount').invalid && loanForm.get('loanAmount').touched">
+        Amount is required
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Is Loan Payed To You?<span style="color: red">*</span></label>
+      <input type="checkbox" class="form-control" formControlName="IsLoanPayedToYou" checked>
+    </div>
+
+    <!-- button to submit data 
+    It is disabled if any validation error is present -->
+    <button type="submit" class="btn btn-success" [disabled]="loanForm.invalid">Save</button>
+    <div class="float-right">
+      <a [routerLink]="['/view-loan']" class="btn btn-outline-dark">Cancel</a>
+    </div>
+  </form>
+</div>
+<br>
+<pre>{{loanForm.value | json }}</pre>

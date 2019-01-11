@@ -9,24 +9,12 @@ namespace MoneyManager.API.Contracts.Data
     /// </summary>
     public interface IParameters
     {
-        /// <summary>
-        /// id for each of the parameters
-        /// </summary>
-        int parameterId { get; set; }
-
-        /// <summary>
-        /// Name of the parameter
-        /// </summary>
-        string parameterName { get; set; }
-
-        /// <summary>
-        /// Amount to be taken from deposit for parameter
-        /// </summary>
-        float parameterAmount { get; set; }
-
-        /// <summary>
-        /// Balance amount after division from deposit for parameter
-        /// </summary>
-        float parameterBalance { get; set; }
+        long ParameterId { get; set; }
+        
+        string ParameterName { get; set; }
+        
+        float ParameterAmount { get; set; }
+        
+        float ParameterBalance { get; set; }
     }
 }

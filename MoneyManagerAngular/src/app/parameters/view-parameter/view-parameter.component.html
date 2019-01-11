@@ -15,7 +15,6 @@
     <tr>
       <th>Id</th>
       <th>Name</th>
-      <th>Amount</th>
       <th>Balance</th>
     </tr>
     <tr *ngIf="appComponent.filterEnabled"></tr>
@@ -25,22 +24,6 @@
         <div class="form-group">
           <input type="text" class="form-control" [(ngModel)]="parameterName">
         </div>
-      </th>
-      <th>
-        <!-- Amount filter start -->
-        <div class="form-group">
-          <label class="control-label"><span>Min : {{ minAmount}}</span></label>
-          <input class="form-control" [(ngModel)]="minAmount" type="range" min="0" max="{{maxLimit}}" numeric>
-        </div>
-        <div class="form-group">
-          <label class="control-label"><span>Max :{{ maxAmount}}</span></label>
-          <input class="form-control" [(ngModel)]="maxAmount" type="range" min="0" max="{{maxLimit}}" numeric>
-          <!-- Shows error message if range is incorrect-->
-          <span class="error" *ngIf="minAmount>maxAmount">
-            Min > Max makes little sense
-          </span>
-        </div>
-        <!-- Amount filter end -->
       </th>
       <th>
           <!-- Amount filter start -->
@@ -62,7 +45,6 @@
     <tr *ngFor="let parameter of (parameterList|ParameterFilterPipe:parameterName:minAmount:maxAmount:minBalance:maxBalance:appComponent.filterEnabled)">
       <td>{{parameter.parameterId}}</td>
       <td>{{parameter.parameterName}}</td>
-      <td>{{parameter.parameterAmount| currency:'INR':'symbol'}}</td>
       <td [class]="parameter.parameterBalance>(0.25*parameter.parameterAmount)?'safe':parameter.parameterBalance>0?'low':'error'">
         {{parameter.parameterBalance| currency:'INR':'symbol'}}
       </td>

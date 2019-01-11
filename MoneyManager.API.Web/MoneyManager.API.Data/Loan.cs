@@ -16,34 +16,34 @@ namespace MoneyManager.API.Data
         /// id for loan
         /// </summary>
         [Key]
-        public int loanId { get; set; }
+        public long LoanId { get; set; }
 
         /// <summary>
         /// details of loan
         /// </summary>
         [Required]
         [StringLength(60, MinimumLength = 3)]
-        public string loanDetails { get; set; }
+        public string LoanDetails { get; set; }
 
         /// <summary>
         /// person who is lending or owes the amount
         /// </summary>
         [Required]
         [StringLength(60, MinimumLength = 3)]
-        public string loanPerson { get; set; }
+        public string LoanPerson { get; set; }
 
         /// <summary>
         /// If loan is to you then true
         /// if you owe the loan then false
         /// </summary>
         [Required]
-        public Boolean isLoanOwedToYou { get; set; }
+        public bool IsLoanOwedToYou { get; set; }
 
         /// <summary>
         /// If the loan has been completely paid then true, else false
         /// </summary>
         [Required]
-        public Boolean isLoanPayed { get; set; }
+        public bool IsLoanPayed { get; set; }
 
         /// <summary>
         /// Total Amount of loan that needs to be paid
@@ -51,20 +51,20 @@ namespace MoneyManager.API.Data
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public float loanAmount { get; set; }
+        public float LoanAmount { get; set; }
 
         /// <summary>
         /// Date on which loan was given
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        public DateTime loanStartDate { get; set; }
+        public DateTime LoanStartDate { get; set; }
 
         /// <summary>
         /// Date by which loan needs to be paid
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        public DateTime loanEndDate { get; set; }
+        public DateTime LoanEndDate { get; set; }
     }
 }

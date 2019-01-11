@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MoneyManager.API.Data.Services
 {
-    class LoanService
+    public class LoanService
     {
         private readonly MoneyManagerContext moneyManagerContext;
 
@@ -50,13 +50,13 @@ namespace MoneyManager.API.Data.Services
         public void AddLoanPayment(LoanPayment loanPayment)
         {
             moneyManagerContext.LoanPayment.Add(loanPayment);
-            var loan = moneyManagerContext.Loan.Find(loanPayment.loanId);
+            var loan = moneyManagerContext.Loan.Find(loanPayment.LoanId);
             //total amount payed or recieved for loan
-            var totalPayed = moneyManagerContext.LoanPayment.Where(entry=>entry.loanId == loanPayment.loanId).Sum(entry => entry.loanPaymentAmount);
-            if(totalPayed>=loan.loanAmount)
+            var totalPayed = moneyManagerContext.LoanPayment.Where(entry=>entry.LoanId == loanPayment.LoanId).Sum(entry => entry.LoanPaymentAmount);
+            if(totalPayed>=loan.LoanAmount)
             {
                 //set payed =true is whole amount is payed or received
-                loan.isLoanPayed = true;
+                loan.IsLoanPayed = true;
             }
             moneyManagerContext.Entry(loan).State = EntityState.Modified;
             moneyManagerContext.SaveChanges();

@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { EntryModel } from './entry-model.model';
 
-export class DepositDetails{
+export class Deposit{
     depositId:number;
     depositSource:string;
     depositDate:Date;

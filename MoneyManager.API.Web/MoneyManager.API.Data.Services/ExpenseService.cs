@@ -39,10 +39,19 @@ namespace MoneyManager.API.Data.Services
         public void AddExpense(Expense expense)
         {
             moneyManagerContext.Expense.Add(expense);
-            //Get parameter details from database and update balance
-            Parameters parameter = moneyManagerContext.Parameters.Where(item => item.parameterId == expense.parameterId).FirstOrDefault<Parameters>();
-            parameter.parameterBalance = parameter.parameterBalance - expense.expenseAmount;
-            moneyManagerContext.Entry(parameter).State = EntityState.Modified;
+            if (!expense.IsSavingsParameter)
+            {
+                //Get parameter details from database and update balance
+                Parameters parameter = moneyManagerContext.Parameters.Where(item => item.ParameterId == expense.ParameterId).FirstOrDefault<Parameters>();
+                parameter.ParameterBalance = parameter.ParameterBalance - expense.ExpenseAmount;
+                moneyManagerContext.Entry(parameter).State = EntityState.Modified;
+            }
+            else
+            {
+                SavingsParameters savingsParameters = moneyManagerContext.SavingsParameters.Where(item => item.SavingsParameterId == expense.SavingsParameterId).FirstOrDefault<SavingsParameters>();
+                savingsParameters.SavingsParameterBalance = savingsParameters.SavingsParameterBalance - expense.ExpenseAmount;
+                moneyManagerContext.Entry(savingsParameters).State = EntityState.Modified;
+            }
             moneyManagerContext.SaveChanges();
         }
     }

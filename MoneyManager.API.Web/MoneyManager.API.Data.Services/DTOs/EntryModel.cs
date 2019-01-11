@@ -9,16 +9,16 @@ namespace MoneyManager.API.Data.Services.DTOs
         /// <summary>
         /// Id for each entry
         /// </summary>
-        public int entryId { get; set; }
+        public long EntryId { get; set; }
 
         /// <summary>
         /// Name of parameter for which amount was added
         /// </summary>
-        public string parameterName { get; set; }
+        public string ParameterName { get; set; }
 
         /// <summary>
         /// Balance added for the parameter
         /// </summary>
-        public float addedBalance { get; set; }
+        public float AddedBalance { get; set; }
     }
 }

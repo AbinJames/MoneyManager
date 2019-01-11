@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ParameterService } from 'src/app/parameters/parameter.service';
 import { Parameters } from 'src/app/models/parameters.model';
+import { SavingsParameters } from 'src/app/models/savings-parameters.model';
+import { SavingsParameterService } from 'src/app/savings-parameters/savings-parameter.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -13,17 +15,22 @@ import { Parameters } from 'src/app/models/parameters.model';
 })
 export class AddExpenseComponent implements OnInit {
 
-  constructor(private parameterService: ParameterService, private expenseService: ExpenseService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
+  constructor(private parameterService: ParameterService,private savingsParameterService:SavingsParameterService, private expenseService: ExpenseService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
 
   expenseForm: FormGroup;
   expense: Expense;
   parameterList: Parameters[];
+  savingsParameterList: SavingsParameters[];
   currentTime: string;
   currentDate: string
 
   ngOnInit() {
     //Function to get parameters for expense
     this.getParameters();
+
+    //Function to get savings parameters
+    this.getSavingsParameters();
+
     //initialize reactive form
     this.initializeForm();
   }
@@ -32,6 +39,14 @@ export class AddExpenseComponent implements OnInit {
   getParameters(): void {
     this.parameterService.getParameters().subscribe(parameterList => {
       this.parameterList = parameterList;
+    });
+  }
+
+  //Function to get savings parameters
+  getSavingsParameters(): void {
+    this.savingsParameterService.getSavingsParameters().subscribe(savingsParameters => {
+      console.log(savingsParameters);
+      this.savingsParameterList = savingsParameters;
     });
   }
 
@@ -44,7 +59,9 @@ export class AddExpenseComponent implements OnInit {
     console.log(this.currentTime, this.currentDate);
     this.expenseForm = this.formBuilder.group({
       expenseId: [0],
-      parameterId: [1, [Validators.required]],
+      savingsParameterId: ['1'],
+      parameterId: ['1'],
+      isSavingsParameter: [false, [Validators.required]],
       expenseDetails: ['', [Validators.required, Validators.minLength(2)]],
       expenseDate: [this.currentDate, [Validators.required, Validators.minLength(2)]],
       expenseTime: [this.currentTime, [Validators.required, Validators.minLength(2)]],

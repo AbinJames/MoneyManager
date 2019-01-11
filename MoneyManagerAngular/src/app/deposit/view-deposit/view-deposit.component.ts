@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DepositService } from '../deposit.service';
-import { DepositDetails } from 'src/app/models/deposit-details.model';
+import { Deposit } from 'src/app/models/deposit.model';
 import { DatePipe } from '@angular/common';
 import { AppComponent } from 'src/app/app.component';
 
@@ -13,7 +13,7 @@ export class ViewDepositComponent implements OnInit {
 
   constructor(private depositService: DepositService, private datePipe: DatePipe, private appComponent: AppComponent) { }
 
-  depositDetails: DepositDetails[];
+  depositDetails: Deposit[];
   minAmount: number = 0;
   maxAmount: number = 1000;
   maxLimit: number = 0;

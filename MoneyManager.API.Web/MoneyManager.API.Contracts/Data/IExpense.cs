@@ -9,34 +9,20 @@ namespace MoneyManager.API.Contracts.Data
     /// </summary>
     public interface IExpense
     {
-        /// <summary>
-        /// Id for expense entry
-        /// </summary>
-        int expenseId { get; set; }
+        long ExpenseId { get; set; }
+        
+        string ExpenseDetails { get; set; }
 
-        /// <summary>
-        /// Additional details related to expense
-        /// </summary>
-        string expenseDetails { get; set; }
+        bool IsSavingsParameter { get; set; }
+        
+        long? ParameterId { get; set; }
 
-        /// <summary>
-        /// id of parameter for which amount was spend
-        /// </summary>
-        int parameterId { get; set; }
-
-        /// <summary>
-        /// Date money is spend
-        /// </summary>
-        DateTime expenseDate { get; set; }
-
-        /// <summary>
-        /// Estimated time when amount was spend
-        /// </summary>
-        DateTime expenseTime { get; set; }
-
-        /// <summary>
-        /// Amount spend
-        /// </summary>
-        float expenseAmount { get; set; }
+        long? SavingsParameterId { get; set; }
+        
+        DateTime ExpenseDate { get; set; }
+        
+        DateTime ExpenseTime { get; set; }
+        
+        float ExpenseAmount { get; set; }
     }
 }

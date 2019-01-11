@@ -13,6 +13,11 @@ import { ExpenseService } from './expenses/expense.service';
 import { NavbarModule } from './navbar/navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageModule } from './navbar/home-page/home-page.module';
+import { LoansModule } from './loans/loans.module';
+import { LoanService } from './loans/loan.service';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { SavingsParameterService } from './savings-parameters/savings-parameter.service';
+import { SavingsParametersModule } from './savings-parameters/savings-parameters.module';
 
 @NgModule({
   declarations: [
@@ -26,14 +31,19 @@ import { HomePageModule } from './navbar/home-page/home-page.module';
     ParametersModule,
     ExpensesModule,
     NavbarModule,
+    SavingsParametersModule,
     HomePageModule,
-    BrowserAnimationsModule
+    LoansModule,
+    BrowserAnimationsModule,
+    PaginationModule.forRoot()
   ],
   providers: [
     AppComponent,
     DepositService,
     ParameterService,
     ExpenseService,
+    LoanService,
+    SavingsParameterService,
     DatePipe
   ],
   bootstrap: [AppComponent]

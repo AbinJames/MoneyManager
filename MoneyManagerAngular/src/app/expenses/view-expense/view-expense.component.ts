@@ -3,6 +3,10 @@ import { ExpenseService } from '../expense.service';
 import { Expense } from 'src/app/models/expense.model';
 import { AppComponent } from 'src/app/app.component';
 import { DatePipe } from '@angular/common';
+import { ParameterService } from 'src/app/parameters/parameter.service';
+import { Parameters } from 'src/app/models/parameters.model';
+import { SavingsParameters } from 'src/app/models/savings-parameters.model';
+import { SavingsParameterService } from 'src/app/savings-parameters/savings-parameter.service';
 
 @Component({
   selector: 'app-view-expense',
@@ -11,7 +15,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ViewExpenseComponent implements OnInit {
 
-  constructor(private expenseService: ExpenseService,private appComponent:AppComponent, private datePipe:DatePipe) { }
+  constructor(private expenseService: ExpenseService, private parameterService: ParameterService, private savingsParameterService:SavingsParameterService, private appComponent: AppComponent, private datePipe: DatePipe) { }
 
   expenseList: Expense[];
   minAmount: number = 0;
@@ -22,17 +26,26 @@ export class ViewExpenseComponent implements OnInit {
   expenseEndDate: string;
   minDateLimit: string;
   maxDateLimit: string;
+  parameterList: Parameters[];
+  savingsParameterList: SavingsParameters[];
 
   ngOnInit() {
+
+    //Function to get parameters for expense
+    this.getParameters();
+
+    //Function to get savings parameters
+    this.getSavingsParameters();
+
     //initialize expense list
     this.initializeExpenseList();
   }
 
-  initializeExpenseList():void{
+  initializeExpenseList(): void {
     //Get expense list from service
     this.expenseService.getExpense().subscribe(expense => {
       this.expenseList = expense;
-      console.log("Expense content" + JSON.stringify(this.expenseList));
+      console.log("Expense content " + JSON.stringify(this.expenseList));
 
       //set amount range for filter
       this.initializeAmountRange();
@@ -40,6 +53,20 @@ export class ViewExpenseComponent implements OnInit {
       //set date range for filter
       this.initializeDateRange();
 
+    });
+  }
+
+   //Function to get parameters for expense
+   getParameters(): void {
+    this.parameterService.getParameters().subscribe(parameterList => {
+      this.parameterList = parameterList;
+    });
+  }
+
+  //Function to get savings parameters
+  getSavingsParameters(): void {
+    this.savingsParameterService.getSavingsParameters().subscribe(savingsParameters => {
+      this.savingsParameterList = savingsParameters;
     });
   }
 

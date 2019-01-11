@@ -16,34 +16,40 @@ namespace MoneyManager.API.Data
         /// Id for expense entry
         /// </summary>
         [Key]
-        public int expenseId { get; set; }
+        public long ExpenseId { get; set; }
 
         /// <summary>
         /// Additional details related to expense
         /// </summary>
         [Required]
         [StringLength(60, MinimumLength = 3)]
-        public string expenseDetails { get; set; }
+        public string ExpenseDetails { get; set; }
+
+        [Required]
+        public bool IsSavingsParameter { get; set; }
+
+        public long? SavingsParameterId { get; set; }
+        public virtual SavingsParameters SavingsParameters { get; set; }
 
         /// <summary>
         /// id of parameter for which amount was spend
         /// </summary>
-        public int parameterId { get; set; }
-        public virtual Parameters amountSplitParameters { get; set; }
+        public long? ParameterId { get; set; }
+        public virtual Parameters Parameters { get; set; }
 
         /// <summary>
         /// Date money is spend
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        public DateTime expenseDate { get; set; }
+        public DateTime ExpenseDate { get; set; }
 
         /// <summary>
         /// Estimated time when amount was spend
         /// </summary>
         [Required]
         [DataType(DataType.Time)]
-        public DateTime expenseTime { get; set; }
+        public DateTime ExpenseTime { get; set; }
 
         /// <summary>
         /// Amount spend
@@ -51,6 +57,6 @@ namespace MoneyManager.API.Data
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public float expenseAmount { get; set; }
+        public float ExpenseAmount { get; set; }
     }
 }

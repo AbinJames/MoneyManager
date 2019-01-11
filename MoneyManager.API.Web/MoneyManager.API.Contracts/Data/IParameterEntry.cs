@@ -10,24 +10,16 @@ namespace MoneyManager.API.Contracts.Data
     /// </summary>
     public interface IParameterEntry
     {
-        /// <summary>
-        /// Id for each entry
-        /// </summary>
-        int entryId { get; set; }
-
-        /// <summary>
-        /// id of parameter for which amount was added
-        /// </summary>
-        int parameterId { get; set; }
-
-        /// <summary>
-        /// id of deposit from which balance was subtracted
-        /// </summary>
-        int depositId { get; set; }
-
-        /// <summary>
-        /// Balance added for the parameter
-        /// </summary>
-        float addedBalance { get; set; }
+        long EntryId { get; set; }
+        
+        long? ParameterId { get; set; }
+        
+        long? SavingsParameterId { get; set; }
+        
+        bool IsSavingsParameter { get; set; }
+        
+        long DepositId { get; set; }
+        
+        float AddedBalance { get; set; }
     }
 }

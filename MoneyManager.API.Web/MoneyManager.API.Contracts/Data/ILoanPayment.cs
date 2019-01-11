@@ -9,24 +9,12 @@ namespace MoneyManager.API.Contracts.Data
     /// </summary>
     public interface ILoanPayment
     {
-        /// <summary>
-        /// id for loan
-        /// </summary>
-        int loanPaymentId { get; set; }
-
-        /// <summary>
-        /// Loan id for which the amount is payed
-        /// </summary>
-        int loanId { get; set; }
-
-        /// <summary>
-        /// Total Amount of loan that needs to be paid
-        /// </summary>
-        float loanPaymentAmount { get; set; }
-
-        /// <summary>
-        /// Date on which amount was given or recieved
-        /// </summary>
-        DateTime loanPaymentDate { get; set; }
+        long LoanPaymentId { get; set; }
+        
+        long LoanId { get; set; }
+        
+        float LoanPaymentAmount { get; set; }
+        
+        DateTime LoanPaymentDate { get; set; }
     }
 }

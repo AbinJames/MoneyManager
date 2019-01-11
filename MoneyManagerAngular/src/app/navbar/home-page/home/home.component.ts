@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DepositService } from 'src/app/deposit/deposit.service';
 import { ParameterService } from 'src/app/parameters/parameter.service';
 import { ExpenseService } from 'src/app/expenses/expense.service';
-import { DepositDetails } from 'src/app/models/deposit-details.model';
+import { Deposit } from 'src/app/models/deposit.model';
 import { Expense } from 'src/app/models/expense.model';
 import { Parameters } from 'src/app/models/parameters.model';
 
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     private parameterService: ParameterService,
     private expenseService: ExpenseService) { }
 
-  depositDetails: DepositDetails[];
+  depositDetails: Deposit[];
   expenseList: Expense[];
   parameterList: Parameters[];
 

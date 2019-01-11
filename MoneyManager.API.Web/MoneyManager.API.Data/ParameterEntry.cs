@@ -17,19 +17,36 @@ namespace MoneyManager.API.Data
         /// Id for each entry
         /// </summary>
         [Key]
-        public int entryId { get; set; }
+        public long EntryId { get; set; }
 
         /// <summary>
         /// id of parameter for which amount was added
         /// </summary>
-        public int parameterId { get; set; }
-        public virtual Parameters amountSplitParameters { get; set; }
+        public long? ParameterId { get; set; }
+        public virtual Parameters Parameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the savings parameter identifier.
+        /// </summary>
+        /// <value>
+        /// The savings parameter identifier.
+        /// </value>
+        public long? SavingsParameterId { get; set; }
+        public virtual SavingsParameters SavingsParameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is savings parameter.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is savings parameter; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsSavingsParameter { get; set; }
 
         /// <summary>
         /// id of deposit from which balance was subtracted
         /// </summary>
-        public int depositId { get; set; }
-        public virtual DepositDetails depositDetails { get; set; }
+        public long DepositId { get; set; }
+        public virtual Deposit deposits { get; set; }
 
         /// <summary>
         /// Balance added for the parameter
@@ -37,6 +54,6 @@ namespace MoneyManager.API.Data
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public float addedBalance { get; set; }
+        public float AddedBalance { get; set; }
     }
 }

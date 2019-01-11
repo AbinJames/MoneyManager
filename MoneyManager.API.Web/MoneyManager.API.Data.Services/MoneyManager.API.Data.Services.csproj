@@ -13,6 +13,9 @@
     <Compile Remove="Migrations\20181210130035_MoneyManagerMigr.cs" />
     <Compile Remove="Migrations\20181211085833_MoneyManagerMigr.cs" />
     <Compile Remove="Migrations\20181211111705_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181211114115_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181227113316_MoneyManager.cs" />
+    <Compile Remove="Migrations\20190106081519_MoneyManager.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,128 @@
+<div class="container-fluid">
+  <div class="float-right">
+    <!-- navigate to create component on click -->
+    <a class="btn btn-link " [routerLink]="['/add-loan']"><span class="fa fa-plus">Add New Loan</span></a>
+  </div>
+  <div class="float-right">
+    <!-- navigate to filter component on click -->
+    <a class="btn btn-link" (click)="appComponent.toggleFilter()">
+      <span class="fa fa-filter" *ngIf="!appComponent.filterEnabled">Filter</span>
+      <span class="fa fa-filter" *ngIf="appComponent.filterEnabled">Stop Filtering</span>
+    </a>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Loan Start Date</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Loan End date</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Loan Details</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Loan Person</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Loan Owed to You?</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Loan Payed?</label>
+        </div>
+      </th>
+      <th>
+        <!-- Amount div start -->
+        <div class="form-group">
+          <label class="control-label">Amount</label>
+        </div>
+        <!-- Amount div end -->
+      </th>
+    </tr>
+    <tr *ngIf="appComponent.filterEnabled"></tr>
+    <tr *ngIf="appComponent.filterEnabled">
+      <th></th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Start Date</label>
+          <input type="date" class="form-control" [(ngModel)]="loanStartStartDate" min="{{minStartDateLimit}}" max="{{maxStartDateLimit}}">
+        </div>
+        <div class="form-group">
+          <label class="control-label">End Date</label>
+          <input type="date" class="form-control" [(ngModel)]="loanStartEndDate" min="{{minStartDateLimit}}" max="{{maxStartDateLimit}}">
+        </div>
+        <span class="error" *ngIf="loanStartDate>loanEndDate">
+          Min > Max makes little sense
+        </span>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Start Date</label>
+          <input type="date" class="form-control" [(ngModel)]="loanEndStartDate" min="{{minEndDateLimit}}" max="{{maxEndDateLimit}}">
+        </div>
+        <div class="form-group">
+          <label class="control-label">End Date</label>
+          <input type="date" class="form-control" [(ngModel)]="loanEndEndDate" min="{{minEndDateLimit}}" max="{{maxEndDateLimit}}">
+        </div>
+        <span class="error" *ngIf="loanStartDate>loanEndDate">
+          Min > Max makes little sense
+        </span>
+      </th>
+      <th>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="loanDetails">
+        </div>
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>
+        <!-- Amount filter start -->
+        <div class="form-group">
+          <label class="control-label"><span>Min :{{ minAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="minAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+        </div>
+        <div class="form-group">
+          <label class="control-label"><span>Max :{{ maxAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="maxAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+          <!-- Shows error message if range is incorrect-->
+          <span class="error" *ngIf="minAmount>maxAmount">
+            Min > Max makes little sense
+          </span>
+        </div>
+        <!-- Amount filter end -->
+      </th>
+    </tr>
+    <tr *ngFor="let loan of loanList;let index = index">
+      <td>{{loan.loanId}}</td>
+      <td>{{loan.loanStartDate| date: 'dd, MMMM, yyyy'}}</td>
+      <td>{{loan.loanEndDate| date: 'dd, MMMM, yyyy'}}</td>
+      <td>{{loan.loanDetails}}</td>
+      <td>{{loan.loanPerson}}</td>
+      <td>{{loan.loanDetails}}</td>
+      <td>
+        <span class="fa fa-check" *ngIf="rule.isLoanOwedToYou"></span>
+        <span class="fa fa-times" *ngIf="!rule.isLoanOwedToYou"></span>
+      </td>
+      <td>
+        <span class="fa fa-check" *ngIf="rule.isLoanPayed"></span>
+        <span class="fa fa-times" *ngIf="!rule.isLoanPayed"></span>
+      </td>
+      <td>{{loan.loanAmount| currency:'INR':'symbol'}}</td>
+    </tr>
+  </table>
+</div>

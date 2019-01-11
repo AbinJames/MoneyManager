@@ -15,25 +15,25 @@ namespace MoneyManager.API.Data
         /// id for loan
         /// </summary>
         [Key]
-        public int loanPaymentId { get; set; }
+        public long LoanPaymentId { get; set; }
 
         /// <summary>
         /// Loan id for which the amount is payed
         /// </summary>
-        public int loanId { get; set; }
-        public virtual Loan loan { get; set; }
+        public long LoanId { get; set; }
+        public virtual Loan Loan { get; set; }
 
         /// <summary>
         /// Total Amount of loan that needs to be paid
         /// </summary>
         [Required]
-        public float loanPaymentAmount { get; set; }
+        public float LoanPaymentAmount { get; set; }
 
         /// <summary>
         /// Date on which amount was given or recieved
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        public DateTime loanPaymentDate { get; set; }
+        public DateTime LoanPaymentDate { get; set; }
     }
 }

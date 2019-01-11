@@ -31,33 +31,33 @@ namespace MoneyManager.API.Data.Services
             //Get list of entries and store in ParameterModel
             var entryList = (from entry in moneyManagerContext.ParameterEntry
                              join parameter in moneyManagerContext.Parameters
-                             on entry.parameterId equals parameter.parameterId
+                             on entry.ParameterId equals parameter.ParameterId
                              select new EntryModel()
                              {
-                                 entryId = entry.entryId,
-                                 parameterName = parameter.parameterName,
-                                 addedBalance = entry.addedBalance
+                                 EntryId = entry.EntryId,
+                                 ParameterName = parameter.ParameterName,
+                                 AddedBalance = entry.AddedBalance
                              }
                              ).ToList();
 
             //Get list of deposits and correspnding entries in entryList
-            return from deposit in moneyManagerContext.DepositDetails
+            return from deposit in moneyManagerContext.Deposit
                    select new DepositModel()
                    {
-                       depositId = deposit.depositId,
-                       depositAmount = deposit.depositAmount,
-                       depositDate = deposit.depositDate,
-                       depositTime = deposit.depositTime,
-                       depositSource = deposit.depositSource,
-                       entryModels = (from entryData in moneyManagerContext.ParameterEntry
-                                      where entryData.depositId == deposit.depositId
+                       DepositId = deposit.DepositId,
+                       DepositAmount = deposit.DepositAmount,
+                       DepositDate = deposit.DepositDate,
+                       DepositTime = deposit.DepositTime,
+                       DepositSource = deposit.DepositSource,
+                       EntryModels = (from entryData in moneyManagerContext.ParameterEntry
+                                      where entryData.DepositId == deposit.DepositId
                                       join parameter in moneyManagerContext.Parameters
-                                      on entryData.parameterId equals parameter.parameterId
+                                      on entryData.ParameterId equals parameter.ParameterId
                                       select new EntryModel()
                                       {
-                                          entryId = entryData.entryId,
-                                          parameterName = parameter.parameterName,
-                                          addedBalance = entryData.addedBalance
+                                          EntryId = entryData.EntryId,
+                                          ParameterName = parameter.ParameterName,
+                                          AddedBalance = entryData.AddedBalance
                                       }).ToList()
                    };
         }
@@ -69,35 +69,51 @@ namespace MoneyManager.API.Data.Services
         /// <param name="depositDetails">
         /// All details stored as class object
         /// </param>
-        public void AddDepositDetails(DepositDetails depositDetails)
+        public void AddDepositDetails(Deposit deposit)
         {
-            moneyManagerContext.DepositDetails.Add(depositDetails);
+            moneyManagerContext.Deposit.Add(deposit);
             //get list of all parameters that have amount less than balane
             //order by balance with lowest first
             var parameterList = moneyManagerContext.Parameters
-                                .Where(parameter => parameter.parameterBalance < parameter.parameterAmount)
-                                .OrderBy(parameter => parameter.parameterBalance)
+                                .Where(parameter => parameter.ParameterBalance < parameter.ParameterAmount)
+                                .OrderBy(parameter => parameter.ParameterBalance)
                                 .ToList();
-            var balance = depositDetails.depositAmount;
+            var balance = deposit.DepositAmount;
             //add amount to balance from deposit and save changes
             foreach (var parameter in parameterList)
             {
-                var amountToBeAdded = parameter.parameterAmount - parameter.parameterBalance;
+                var amountToBeAdded = parameter.ParameterAmount - parameter.ParameterBalance;
                 var amountThatCanBeAdded = balance <= amountToBeAdded ? balance : amountToBeAdded;
-                if (amountToBeAdded > (0.25 * parameter.parameterAmount))
+                if (amountToBeAdded > (0.25 * parameter.ParameterAmount))
                 {
                     ParameterEntry parameterEntry = new ParameterEntry()
                     {
-                        parameterId = parameter.parameterId,
-                        depositId = depositDetails.depositId,
-                        addedBalance = amountThatCanBeAdded
+                        ParameterId = parameter.ParameterId,
+                        DepositId = deposit.DepositId,
+                        AddedBalance = amountThatCanBeAdded,
+                        IsSavingsParameter = false
                     };
                     moneyManagerContext.ParameterEntry.Add(parameterEntry);
-                    parameter.parameterBalance = parameter.parameterBalance + amountThatCanBeAdded;
+                    parameter.ParameterBalance = parameter.ParameterBalance + amountThatCanBeAdded;
                     balance = balance - amountThatCanBeAdded;
                     moneyManagerContext.Entry(parameter).State = EntityState.Modified;
                 }
             }
+            var savingsParameterList = moneyManagerContext.SavingsParameters.ToList();
+            foreach (var savingsParameter in savingsParameterList)
+            {
+                ParameterEntry parameterEntry = new ParameterEntry()
+                {
+                    SavingsParameterId = savingsParameter.SavingsParameterId,
+                    DepositId = deposit.DepositId,
+                    AddedBalance = balance / savingsParameterList.Count,
+                    IsSavingsParameter = true
+                };
+                moneyManagerContext.ParameterEntry.Add(parameterEntry);
+                savingsParameter.SavingsParameterBalance = savingsParameter.SavingsParameterBalance + (balance / savingsParameterList.Count);
+                moneyManagerContext.Entry(savingsParameter).State = EntityState.Modified;
+            }
+
             moneyManagerContext.SaveChanges();
         }
     }
