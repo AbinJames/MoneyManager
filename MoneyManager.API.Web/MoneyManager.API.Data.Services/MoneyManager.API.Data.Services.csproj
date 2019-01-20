@@ -6,6 +6,16 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20181207072403_MoneyManagerMigration.cs" />
+    <Compile Remove="Migrations\20181210092432_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181210115159_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181210125502_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181210125646_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181210130035_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181211085833_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181211111705_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181211114115_MoneyManagerMigr.cs" />
+    <Compile Remove="Migrations\20181227113316_MoneyManager.cs" />
+    <Compile Remove="Migrations\20190106081519_MoneyManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MoneyManager.API.Contracts\MoneyManager.API.Contracts.csproj" />
     <ProjectReference Include="..\MoneyManager.API.Data\MoneyManager.API.Data.csproj" />
   </ItemGroup>
 

@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MoneyManagerAngular';
+
+  constructor() { }
+  filterEnabled: boolean = false;
+
+  //function to toggle filtering
+  toggleFilter(): void {
+    this.filterEnabled = !this.filterEnabled;
+  }
 }

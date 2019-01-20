@@ -2,6 +2,7 @@
 using MoneyManager.API.Data;
 using MoneyManager.API.Data.Services;
 using MoneyManager.API.Data.Services.Context;
+using MoneyManager.API.Data.Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,18 +27,18 @@ namespace MoneyManager.API.Web.Controllers
         /// <summary>
         /// Add deposit details to database through service
         /// </summary>
-        /// <param name="depositDetails">Data from clientside</param>
+        /// <param name="deposit">Data from clientside</param>
         /// <returns>No content or error</returns>
         [HttpPost]
         [Route("AddDeposit")]
-        public IActionResult AddDepositDetails(DepositDetails depositDetails)
+        public IActionResult AddDepositDetails(Deposit deposit)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            depositService.AddDepositDetails(depositDetails);
+            depositService.AddDepositDetails(deposit);
             return NoContent();
         }
 
@@ -45,8 +46,9 @@ namespace MoneyManager.API.Web.Controllers
         /// Gets list of deposit details from database through service
         /// </summary>
         /// <returns>List of deposit details</returns>
-        [HttpGet("GetDeposit")]
-        public IEnumerable<DepositDetails> GetDepositDetails()
+        [HttpGet]
+        [Route("GetDeposit")]
+        public IEnumerable<DepositModel> GetDepositDetails()
         {
             return depositService.GetDepositDetails();
         }
