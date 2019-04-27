@@ -15,9 +15,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageModule } from './navbar/home-page/home-page.module';
 import { LoansModule } from './loans/loans.module';
 import { LoanService } from './loans/loan.service';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SavingsParameterService } from './savings-parameters/savings-parameter.service';
 import { SavingsParametersModule } from './savings-parameters/savings-parameters.module';
+import { SeriesModule } from './series/series.module';
+import { SeriesService } from './series/series.service';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { SavingsParametersModule } from './savings-parameters/savings-parameters
     HomePageModule,
     LoansModule,
     BrowserAnimationsModule,
-    PaginationModule.forRoot()
+    SeriesModule,
+    AngularFontAwesomeModule
   ],
   providers: [
     AppComponent,
@@ -43,6 +46,7 @@ import { SavingsParametersModule } from './savings-parameters/savings-parameters
     ParameterService,
     ExpenseService,
     LoanService,
+    SeriesService,
     SavingsParameterService,
     DatePipe
   ],

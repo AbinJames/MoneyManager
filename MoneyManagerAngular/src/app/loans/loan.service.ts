@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Loan } from '../models/loan.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,7 +16,7 @@ export class LoanService {
     console.log("Connected to Loans Module : "+arg);
   }
 
-  addLoan(loan:Loan): void {
+  addLoan(loan:any): void {
     //Post Invoice and corresponding rules to API to be saved in Database
     this.httpClient.post(this.baseUrl + 'AddLoan', loan).subscribe(result => {
       console.log(result);
@@ -26,8 +25,8 @@ export class LoanService {
     });
   }
 
-  getLoan():Observable<Loan[]>{
+  getLoan():Observable<any[]>{
     //returns list of loan details from api
-    return this.httpClient.get<Loan[]>(this.baseUrl+'GetLoans');
+    return this.httpClient.get<any[]>(this.baseUrl+'GetLoans');
   }
 }

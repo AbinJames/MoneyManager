@@ -1,0 +1,195 @@
+<div class="container-fluid">
+  <div class="float-right">
+    <!-- navigate to create component on click -->
+    <a class="btn btn-link " [routerLink]="['/add-series']"><span class="fa fa-plus">Add New Series</span></a>
+  </div>
+  <div class="float-right">
+    <!-- navigate to filter component on click -->
+    <a class="btn btn-link" (click)="appComponent.toggleFilter()">
+      <span class="fa fa-filter" *ngIf="!appComponent.filterEnabled">Filter</span>
+      <span class="fa fa-filter" *ngIf="appComponent.filterEnabled">Stop Filtering</span>
+    </a>
+  </div>
+  <div *ngIf="size  != seriesEpisodeList.count">{{seriesEpisodeList.count}}/{{size}} <fa name="cog" animation="spin"></fa></div>
+  <table class="table table-striped">
+    <tr>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Image</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Name</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Status</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Next Episode</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Next Episode Date</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Season List</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Wiki List</label>
+        </div>
+      </th>
+    </tr>
+    <tr *ngIf="appComponent.filterEnabled"></tr>
+    <tr *ngIf="appComponent.filterEnabled">
+      <th></th>
+      <th colspan="3">
+        <div class="form-group">
+          <label class="control-label">Start Date</label>
+          <input type="date" class="form-control" [(ngModel)]="seriesStartDate" min="{{minDateLimit}}"
+            max="{{maxDateLimit}}">
+        </div>
+        <div class="form-group">
+          <label class="control-label">End Date</label>
+          <input type="date" class="form-control" [(ngModel)]="seriesEndDate" min="{{minDateLimit}}"
+            max="{{maxDateLimit}}">
+        </div>
+        <span class="error" *ngIf="seriesStartDate>seriesEndDate">
+          Min > Max makes little sense
+        </span>
+      </th>
+      <th></th>
+      <th>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="seriesDetails">
+        </div>
+      </th>
+      <th>
+        <!-- Amount filter start -->
+        <div class="form-group">
+          <label class="control-label"><span>Min :{{ minAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="minAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+        </div>
+        <div class="form-group">
+          <label class="control-label"><span>Max :{{ maxAmount}}</span></label>
+          <input class="form-control" [(ngModel)]="maxAmount" type="range" min="0" max="{{maxLimit}}" numeric>
+          <!-- Shows error message if range is incorrect-->
+          <span class="error" *ngIf="minAmount>maxAmount">
+            Min > Max makes little sense
+          </span>
+        </div>
+        <!-- Amount filter end -->
+      </th>
+      <th>
+        <!-- Option to select between Active and inactive invoices -->
+        <select id="isActiveFilter" [(ngModel)]="isSavingsParameter">
+          <option selected value="-1">All</option>
+          <option value="1">is Savings Parameter</option>
+          <option value="0">not Savings Parameter</option>
+        </select>
+      </th>
+      <th *ngIf="isSavingsParameter == 0">
+        <select required class="form-control border-0" [(ngModel)]="seriesId">
+          <!-- Loop through seriesList to display option with seriesId as value for each option -->
+          <ng-container *ngFor="let series of seriesList">
+            <option id="{{series.seriesId}}" value="{{series.seriesId}}">{{series.seriesName}}</option>
+          </ng-container>
+        </select>
+      </th>
+      <th *ngIf="isSavingsParameter == 1">
+        <select required class="form-control border-0" [(ngModel)]="seriesId">
+          <!-- Loop through seriesList to display option with seriesId as value for each option -->
+          <ng-container *ngFor="let savingsParameter of savingsParameterList">
+            <option id="{{savingsParameter.savingsParameterId}}" value="{{savingsParameter.savingsParameterId}}">
+              {{savingsParameter.savingsParameterName}}</option>
+          </ng-container>
+        </select>
+      </th>
+    </tr>
+    <ng-container *ngFor="let series of seriesDetails;let seriesIndex = index">
+      <tr>
+        <td><img src="{{seriesImageList[seriesIndex]}}" height="100" /></td>
+        <td>{{series.name}}</td>
+        <td>{{series.status}}</td>
+        <td>{{series.seriesTime| date: 'hh:mm a' }}</td>
+        <td>{{series.seriesDetails}}</td>
+        <td>
+          <!-- toggle button for collapsing series seasons -->
+          <button data-toggle="collapse" attr.data-target="#series_season_{{seriesIndex}}"
+            (click)="toggleSeasonCollapseIcon(seriesIndex)">
+            <span [class]="seasonToggleClicked[seriesIndex] ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
+          </button>
+        </td>
+        <td>
+          <!-- toggle button for collapsing series wiki -->
+          <button data-toggle="collapse" attr.data-target="#series_wiki_{{seriesIndex}}"
+            (click)="toggleWikiCollapseIcon(seriesIndex)">
+            <span [class]="wikiToggleClicked[seriesIndex] ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+            <div id="series_wiki_{{seriesIndex}}" class="collapse">
+                <table class="table table-bordered table-hover table-sm">
+                    <tr *ngFor="let wiki of seriesWikiList[seriesIndex]">
+                        <th><a href="{{wiki}}" target="_blank">{{wiki}}</a></th>
+                      </tr>
+                </table>
+            </div>
+          <div id="series_season_{{seriesIndex}}" class="collapse">
+            <table class="table table-bordered table-hover table-sm">
+              <tr>
+                <th>Season</th>
+                <th></th>
+              </tr>
+              <ng-container *ngFor="let season of seriesSeasonList[seriesIndex];">
+                <tr>
+                  <td>{{season.number}}</td>
+                  <td>
+                    <!-- toggle button for collapsing season episodes -->
+                    <button data-toggle="collapse" attr.data-target="#series_episode_{{seriesIndex}}_{{season.number}}"
+                      (click)="toggleEpisodeCollapseIcon(seriesIndex + season.number)">
+                      <span
+                        [class]="episodeToggleClicked[seriesIndex + season.number] ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div id="series_episode_{{seriesIndex}}_{{season.number}}" class="collapse">
+                      <table class="table table-bordered table-hover table-sm">
+                        <tr>
+                          <th>Episode</th>
+                          <th>Name</th>
+                          <th>Airdate</th>
+                          <th></th>
+                        </tr>
+                        <ng-container *ngIf="seriesEpisodeList != undefined">
+                          <tr *ngFor="let episode of seriesEpisodeList.Item(season.id);">
+                            <td>{{episode.number}}</td>
+                            <td>{{episode.name}}</td>
+                            <td>{{episode.airdate}}</td>
+                          </tr>
+                        </ng-container>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</div>

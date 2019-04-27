@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { SavingsParameters } from 'src/app/models/savings-parameters.model';
 import { SavingsParameterService } from '../savings-parameter.service';
 
 @Component({
@@ -14,7 +13,7 @@ export class AddSavingsParametersComponent implements OnInit {
   constructor(private savingsParameterService: SavingsParameterService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
 
   savingsParameterForm: FormGroup;
-  savingsParameterDetails: SavingsParameters;
+  savingsParameterDetails: any;
   currentTime: string;
   currentDate: string
 

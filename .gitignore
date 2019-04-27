@@ -6,8 +6,5 @@ bin-release/
 
 # Other files and folders
 MoneyManagerAngular/node_modules
-<<<<<<< HEAD
-MoneyManager.API.Web/.vs/MoneyManager.API/v15
-=======
-MoneyManager.API.Web/.vs/MoneyManager.API/v15
->>>>>>> d334758c6e6b589a18d0a95543c566c67dd4c092
+
+MoneyManager.API.Web/.vs

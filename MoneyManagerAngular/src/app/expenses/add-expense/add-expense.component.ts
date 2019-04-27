@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../expense.service';
-import { Expense } from 'src/app/models/expense.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ParameterService } from 'src/app/parameters/parameter.service';
-import { Parameters } from 'src/app/models/parameters.model';
-import { SavingsParameters } from 'src/app/models/savings-parameters.model';
 import { SavingsParameterService } from 'src/app/savings-parameters/savings-parameter.service';
 
 @Component({
@@ -18,9 +15,9 @@ export class AddExpenseComponent implements OnInit {
   constructor(private parameterService: ParameterService,private savingsParameterService:SavingsParameterService, private expenseService: ExpenseService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
 
   expenseForm: FormGroup;
-  expense: Expense;
-  parameterList: Parameters[];
-  savingsParameterList: SavingsParameters[];
+  expense: any;
+  parameterList: any[];
+  savingsParameterList: any[];
   currentTime: string;
   currentDate: string
 

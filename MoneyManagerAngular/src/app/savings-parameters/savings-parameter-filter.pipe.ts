@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SavingsParameters } from '../models/savings-parameters.model';
 
 @Pipe({ name: 'SavingsParameterFilterPipe' })
 
 export class SavingsParameterFilterPipe implements PipeTransform {
-    transform(savingsParameterList: SavingsParameters[], savingsParameterName: string, minAmount: number, maxAmount: number, minBalance: number, maxBalance: number, filterEnabled: boolean) {
+    transform(savingsParameterList: any[], savingsParameterName: string, minAmount: number, maxAmount: number, minBalance: number, maxBalance: number, filterEnabled: boolean) {
         console.log("\nsavingsParameterName " + savingsParameterName
             + "\nminAmount " + minAmount
             + "\nmaxAmount " + maxAmount

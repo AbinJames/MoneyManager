@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ParameterService } from '../parameter.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Parameters } from 'src/app/models/parameters.model';
 
 @Component({
   selector: 'app-add-parameter',
@@ -14,7 +13,7 @@ export class AddParameterComponent implements OnInit {
   constructor(private parameterService: ParameterService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
 
   parameterForm: FormGroup;
-  parameterDetails: Parameters;
+  parameterDetails: any;
   currentTime: string;
   currentDate: string
 

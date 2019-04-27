@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Parameters } from '../models/parameters.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -17,7 +16,7 @@ export class ParameterService {
     console.log("Connected to Parameter Module : "+arg);
   }
 
-  addParameter(parameter:Parameters): void {
+  addParameter(parameter:any): void {
     //Post Invoice and corresponding rules to API to be saved in Database
     this.httpClient.post(this.baseUrl + 'AddParameter', parameter).subscribe(result => {
       console.log(result);
@@ -26,8 +25,8 @@ export class ParameterService {
     });
   }
 
-  getParameters():Observable<Parameters[]>{
+  getParameters():Observable<any[]>{
     //returns list of parameter details from api
-    return this.httpClient.get<Parameters[]>(this.baseUrl+'GetParameters');
+    return this.httpClient.get<any[]>(this.baseUrl+'GetParameters');
   }
 }

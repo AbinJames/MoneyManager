@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MoneyManager.API.Data.Services.Context;
+using MoneyManager.API.Data.Services.MoneyManagerDataContext;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MoneyManager.API.Data.Services.Migrations
 {
@@ -15,15 +15,14 @@ namespace MoneyManager.API.Data.Services.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("MoneyManager.API.Data.Deposit", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.Deposit", b =>
                 {
                     b.Property<long>("DepositId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("DepositAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
@@ -42,11 +41,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.ToTable("Deposit");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.Expense", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.Expense", b =>
                 {
                     b.Property<long>("ExpenseId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("ExpenseAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
@@ -75,11 +73,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.ToTable("Expense");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.Loan", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.Loan", b =>
                 {
                     b.Property<long>("LoanId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsLoanOwedToYou");
 
@@ -106,11 +103,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.ToTable("Loan");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.LoanPayment", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.LoanPayment", b =>
                 {
                     b.Property<long>("LoanPaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<long>("LoanId");
 
@@ -125,11 +121,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.ToTable("LoanPayment");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.ParameterEntry", b =>
                 {
                     b.Property<long>("EntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("AddedBalance")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
@@ -154,11 +149,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                     b.ToTable("ParameterEntry");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.Parameters", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.Parameters", b =>
                 {
                     b.Property<long>("ParameterId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("ParameterAmount")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
@@ -186,11 +180,10 @@ namespace MoneyManager.API.Data.Services.Migrations
                     );
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.SavingsParameters", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.SavingsParameters", b =>
                 {
                     b.Property<long>("SavingsParameterId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<float>("SavingsParameterBalance");
 
@@ -209,37 +202,37 @@ namespace MoneyManager.API.Data.Services.Migrations
                     );
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.Expense", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.Expense", b =>
                 {
-                    b.HasOne("MoneyManager.API.Data.Parameters", "Parameters")
+                    b.HasOne("MoneyManager.API.Data.MoneyManagerData.Parameters", "Parameters")
                         .WithMany()
                         .HasForeignKey("ParameterId");
 
-                    b.HasOne("MoneyManager.API.Data.SavingsParameters", "SavingsParameters")
+                    b.HasOne("MoneyManager.API.Data.MoneyManagerData.SavingsParameters", "SavingsParameters")
                         .WithMany()
                         .HasForeignKey("SavingsParameterId");
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.LoanPayment", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.LoanPayment", b =>
                 {
-                    b.HasOne("MoneyManager.API.Data.Loan", "Loan")
+                    b.HasOne("MoneyManager.API.Data.MoneyManagerData.Loan", "Loan")
                         .WithMany()
                         .HasForeignKey("LoanId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MoneyManager.API.Data.ParameterEntry", b =>
+            modelBuilder.Entity("MoneyManager.API.Data.MoneyManagerData.ParameterEntry", b =>
                 {
-                    b.HasOne("MoneyManager.API.Data.Deposit", "deposits")
+                    b.HasOne("MoneyManager.API.Data.MoneyManagerData.Deposit", "deposits")
                         .WithMany()
                         .HasForeignKey("DepositId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MoneyManager.API.Data.Parameters", "Parameters")
+                    b.HasOne("MoneyManager.API.Data.MoneyManagerData.Parameters", "Parameters")
                         .WithMany()
                         .HasForeignKey("ParameterId");
 
-                    b.HasOne("MoneyManager.API.Data.SavingsParameters", "SavingsParameters")
+                    b.HasOne("MoneyManager.API.Data.MoneyManagerData.SavingsParameters", "SavingsParameters")
                         .WithMany()
                         .HasForeignKey("SavingsParameterId");
                 });

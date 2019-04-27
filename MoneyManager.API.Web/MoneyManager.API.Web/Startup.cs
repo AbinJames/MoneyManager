@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MoneyManager.API.Data.Services.Context;
+using MoneyManager.API.Data.Services.MoneyManagerDataContext;
+using MoneyManager.API.Data.Services.SeriesManagerDataContext;
 
 namespace MoneyManager.API.Web
 {
@@ -43,7 +39,8 @@ namespace MoneyManager.API.Web
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //"SqlConnection": "Server=.\\SQLExpress;Database=TariffDatabase; Trusted_Connection=Yes;"
-            services.AddDbContext<MoneyManagerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+            services.AddDbContext<MoneyManagerContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MoneyManagerConnection")));
+            services.AddDbContext<SeriesManagerContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SeriesManagerConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

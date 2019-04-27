@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { DepositService } from 'src/app/deposit/deposit.service';
 import { SavingsParameterService } from '../savings-parameter.service';
-import { SavingsParameters } from 'src/app/models/savings-parameters.model';
 
 @Component({
   selector: 'app-view-savings-parameters',
@@ -13,7 +12,7 @@ export class ViewSavingsParametersComponent implements OnInit {
 
   constructor(private savingsParameterService: SavingsParameterService, private appComponent: AppComponent, private depositService: DepositService) { }
 
-  savingsParameterList: SavingsParameters[];
+  savingsParameterList: any[];
   maxLimit: number;
   maxAmount: number;
   minAmount: number = 0;

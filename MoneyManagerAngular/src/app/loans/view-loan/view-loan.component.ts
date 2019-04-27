@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoanService } from '../loan.service';
 import { AppComponent } from 'src/app/app.component';
 import { DatePipe } from '@angular/common';
-import { Loan } from 'src/app/models/loan.model';
 
 @Component({
   selector: 'app-view-loan',
@@ -14,7 +13,7 @@ export class ViewLoanComponent implements OnInit {
 
   constructor(private loanService: LoanService,private appComponent:AppComponent, private datePipe:DatePipe) { }
 
-  loanList: Loan[];
+  loanList: any[];
   minAmount: number = 0;
   maxAmount: number = 1000;
   maxLimit: number = 0;
