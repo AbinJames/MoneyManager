@@ -54,7 +54,7 @@ namespace MoneyManager.API.Data.Services.Migrations.SeriesManager
                     { 76L, 36483L, "Star Wars Resistance" },
                     { 75L, 7480L, "Star Trek Discovery" },
                     { 74L, 713L, "SpongeBob SquarePants" },
-                    { 73L, 1611L, "Spider-Man" },
+                    { 73L, 21928L, "Spider-Man" },
                     { 72L, 143L, "Silicon Valley" },
                     { 71L, 335L, "Sherlock" },
                     { 70L, 2158L, "Shadowhunters" },

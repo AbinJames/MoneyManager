@@ -87,7 +87,7 @@ namespace MoneyManager.API.Data.Services.SeriesManagerDataContext
                 new Series { SeriesId = 70, ApiId = 2158, SeriesName = "Shadowhunters" },
                 new Series { SeriesId = 71, ApiId = 335, SeriesName = "Sherlock" },
                 new Series { SeriesId = 72, ApiId = 143, SeriesName = "Silicon Valley" },
-                new Series { SeriesId = 73, ApiId = 1611, SeriesName = "Spider-Man" },
+                new Series { SeriesId = 73, ApiId = 21928, SeriesName = "Spider-Man" },
                 new Series { SeriesId = 74, ApiId = 713, SeriesName = "SpongeBob SquarePants" },
                 new Series { SeriesId = 75, ApiId = 7480, SeriesName = "Star Trek Discovery" },
                 new Series { SeriesId = 76, ApiId = 36483, SeriesName = "Star Wars Resistance" },

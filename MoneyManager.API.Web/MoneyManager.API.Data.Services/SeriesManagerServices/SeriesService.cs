@@ -41,5 +41,13 @@ namespace MoneyManager.API.Data.Services.SeriesManagerServices
             seriesManagerContext.Series.Add(series);
             seriesManagerContext.SaveChanges();
         }
+
+        public bool DeleteSeries(long seriesId)
+        {
+            var series = seriesManagerContext.Series.Where(x => x.ApiId == seriesId).FirstOrDefault();
+            seriesManagerContext.Series.Remove(series);
+            seriesManagerContext.SaveChanges();
+            return true;
+        }
     }
 }

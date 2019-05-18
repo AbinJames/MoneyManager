@@ -14,10 +14,10 @@ namespace SeriesManager.API.Web.SeriesManagerControllers
     [ApiController]
     public class SeriesController : ControllerBase
     {
-        private SeriesService expenseService;
+        private SeriesService seriesService;
         public SeriesController(SeriesManagerContext seriesManagerContext)
         {
-            expenseService = new SeriesService(seriesManagerContext);
+            seriesService = new SeriesService(seriesManagerContext);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SeriesManager.API.Web.SeriesManagerControllers
                 return BadRequest(ModelState);
             }
 
-            expenseService.AddSeries(expense);
+            seriesService.AddSeries(expense);
             return NoContent();
         }
 
@@ -46,7 +46,18 @@ namespace SeriesManager.API.Web.SeriesManagerControllers
         [Route("GetSeries")]
         public IEnumerable<Series> GetSeries()
         {
-            return expenseService.GetSeries();
+            return seriesService.GetSeries();
+        }
+
+        /// <summary>
+        /// Delete series
+        /// </summary>
+        /// <returns>List of expense details</returns>
+        [HttpDelete]
+        [Route("DeleteSeries/{seriesId}")]
+        public bool DeleteSeries([FromRoute]long seriesId)
+        {
+            return seriesService.DeleteSeries(seriesId);
         }
     }
 }

@@ -6,7 +6,7 @@ import { ViewParameterComponent } from './parameters/view-parameter/view-paramet
 import { AddParameterComponent } from './parameters/add-parameter/add-parameter.component';
 import { ViewExpenseComponent } from './expenses/view-expense/view-expense.component';
 import { AddExpenseComponent } from './expenses/add-expense/add-expense.component';
-import { HomeComponent } from './navbar/home-page/home/home.component';
+import { HomeComponent } from './commonPage/home-page/home/home.component';
 import { AddLoanComponent } from './loans/add-loan/add-loan.component';
 import { ViewLoanComponent } from './loans/view-loan/view-loan.component';
 import { ViewSavingsParametersComponent } from './savings-parameters/view-savings-parameters/view-savings-parameters.component';

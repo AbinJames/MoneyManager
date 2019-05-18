@@ -18,9 +18,21 @@ export class SeriesService {
       retryWhen(errors =>
         errors.pipe(
           //log error message
-          tap(val => console.log(`Value ${val} was too high!`)),
+          tap(val => console.log(val["message"])),
           //restart in 5 seconds
-          delayWhen(val => timer(val * 1000))
+          delayWhen(val => timer(1000))
+        )
+      ));
+  }
+
+  getEpisodeDetails(link: any): Observable<any[]> {
+    return this.httpClient.get<any>(link).pipe(
+      retryWhen(errors =>
+        errors.pipe(
+          //log error message
+          tap(val => console.log(val["message"])),
+          //restart in 5 seconds
+          delayWhen(val => timer(1000))
         )
       ));
   }
@@ -30,9 +42,9 @@ export class SeriesService {
       retryWhen(errors =>
         errors.pipe(
           //log error message
-          tap(val => console.log(`Value ${val} was too high!`)),
+          tap(val => console.log(val["message"])),
           //restart in 5 seconds
-          delayWhen(val => timer(val * 1000))
+          delayWhen(val => timer(1000))
         )
       ));
   }
@@ -42,9 +54,9 @@ export class SeriesService {
       retryWhen(errors =>
         errors.pipe(
           //log error message
-          tap(val => console.log(`Value ${val} was too high!`)),
+          tap(val => console.log(val["message"])),
           //restart in 5 seconds
-          delayWhen(val => timer(val * 1000))
+          delayWhen(val => timer(1000))
         )
       ));
   }
@@ -56,17 +68,24 @@ export class SeriesService {
     //return this.http.get<Episode[]>('http://api.tvmaze.com/shows/'+id+'/episodes');
   }
 
+  // deleteSeries(seriesId:any): Observable<any[]> {
+  //   //returns list of expense details from api
+  //   return this.baseService.getData(this.baseUrl + `${'DeleteSeries'}/${seriesId}`);
+  //   // return this.http.get<SeriesFull>(`${'http://api.tvmaze.com/singlesearch/shows'}/?q=${name}`);
+  //   //return this.http.get<Episode[]>('http://api.tvmaze.com/shows/'+id+'/episodes');
+  // }
+
   getWikis(searchString: any): Observable<any[]> {
     var options = {
       headers: this.baseService.getCommonHeaders()
-};
+    };
     return this.httpClient.get<any>(`${'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search='}${searchString}`).pipe(
       retryWhen(errors =>
         errors.pipe(
           //log error message
-          tap(val => console.log(`Value ${val} was too high!`)),
+          tap(val => console.log(val["message"])),
           //restart in 5 seconds
-          delayWhen(val => timer(val * 1000))
+          delayWhen(val => timer(1000))
         )
       ));
   }

@@ -10,9 +10,9 @@ import { ParameterService } from './parameters/parameter.service';
 import { ParametersModule } from './parameters/parameters.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { ExpenseService } from './expenses/expense.service';
-import { NavbarModule } from './navbar/navbar.module';
+import { CommonPageModule } from './commonPage/common-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomePageModule } from './navbar/home-page/home-page.module';
+import { HomePageModule } from './commonPage/home-page/home-page.module';
 import { LoansModule } from './loans/loans.module';
 import { LoanService } from './loans/loan.service';
 import { SavingsParameterService } from './savings-parameters/savings-parameter.service';
@@ -32,7 +32,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     DepositModule,
     ParametersModule,
     ExpensesModule,
-    NavbarModule,
+    CommonPageModule,
     SavingsParametersModule,
     HomePageModule,
     LoansModule,

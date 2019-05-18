@@ -4,15 +4,18 @@ import { ViewSeriesComponent } from './view-series/view-series.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { SeriesFilterPipe } from './series-filter.pipe';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
-  declarations: [ViewSeriesComponent],
+  declarations: [ViewSeriesComponent, SeriesFilterPipe],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    ModalModule.forRoot()
   ]
 })
 export class SeriesModule { }
