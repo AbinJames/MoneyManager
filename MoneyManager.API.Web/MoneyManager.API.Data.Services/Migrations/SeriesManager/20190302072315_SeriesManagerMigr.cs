@@ -60,7 +60,7 @@ namespace MoneyManager.API.Data.Services.Migrations.SeriesManager
                     { 70L, 2158L, "Shadowhunters" },
                     { 69L, 14612L, "Santa Clarita Diet" },
                     { 68L, 22188L, "Salvation" },
-                    { 67L, 37920L, "Runaways" },
+                    { 67L, 20172L, "Runaways" },
                     { 65L, 34300L, "Rise of the Teenage Mutant Ninja Turtles" },
                     { 78L, 17862L, "Stretch Armstrong and the Flex Fighters" },
                     { 64L, 216L, "Rick and Morty" },

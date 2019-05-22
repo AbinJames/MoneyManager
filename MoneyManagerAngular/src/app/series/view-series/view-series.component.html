@@ -19,12 +19,32 @@
       </th>
       <th>
         <div class="form-group">
-          <label class="control-label">Name</label>
+          <label class="control-label" (click)='sortList("name")'><span *ngIf="sortToggle.name != 0"
+              [class]="sortToggle.name == 1? 'fa fa-angle-up': 'fa fa-angle-down'"></span>Name</label>
         </div>
       </th>
       <th>
         <div class="form-group">
-          <label class="control-label">Status</label>
+          <label class="control-label" (click)='sortList("status")'><span *ngIf="sortToggle.status != 0"
+              [class]="sortToggle.status == 1? 'fa fa-angle-up': 'fa fa-angle-down'"></span>Status</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Previous Episode</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label">Previous Episode Name</label>
+        </div>
+      </th>
+      <th>
+        <div class="form-group">
+          <label class="control-label" (click)='sortList("previousEpisodeAirdate")'><span
+              *ngIf="sortToggle.previousEpisodeAirdate != 0"
+              [class]="sortToggle.previousEpisodeAirdate == 1? 'fa fa-angle-up': 'fa fa-angle-down'"></span>Previous
+            Episode Date</label>
         </div>
       </th>
       <th>
@@ -39,7 +59,10 @@
       </th>
       <th>
         <div class="form-group">
-          <label class="control-label">Next Episode Date</label>
+          <label class="control-label" (click)='sortList("nextEpisodeAirdate")'><span
+              *ngIf="sortToggle.nextEpisodeAirdate != 0"
+              [class]="sortToggle.nextEpisodeAirdate == 1? 'fa fa-angle-up': 'fa fa-angle-down'"></span>Next Episode
+            Date</label>
         </div>
       </th>
       <th>
@@ -71,16 +94,29 @@
           <input class="form-control" [(ngModel)]="seriesName" type="text">
         </div>
       </th>
-      <th colspan="6">
+      <th colspan="4">
+        <div class="form-group">
+          <label class="control-label">Previous Episode Start Date</label>
+          <input type="date" class="form-control" [(ngModel)]="previousSeriesStartDate">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Previous Episode End Date</label>
+          <input type="date" class="form-control" [(ngModel)]="previousSeriesEndDate">
+        </div>
+        <span class="error" *ngIf="previousSeriesStartDate>previousSeriesEndDate">
+          Min > Max makes little sense
+        </span>
+      </th>
+      <th colspan="5">
         <div class="form-group">
           <label class="control-label">Next Episode Start Date</label>
-          <input type="date" class="form-control" [(ngModel)]="seriesStartDate">
+          <input type="date" class="form-control" [(ngModel)]="nextSeriesStartDate">
         </div>
         <div class="form-group">
           <label class="control-label">Next Episode End Date</label>
-          <input type="date" class="form-control" [(ngModel)]="seriesEndDate">
+          <input type="date" class="form-control" [(ngModel)]="nextSeriesEndDate">
         </div>
-        <span class="error" *ngIf="seriesStartDate>seriesEndDate">
+        <span class="error" *ngIf="nextSeriesStartDate>nextSeriesEndDate">
           Min > Max makes little sense
         </span>
       </th>
@@ -93,17 +129,24 @@
         </select>
       </th>
     </tr>
-    <ng-container *ngFor="let series of (seriesDetails|SeriesFilterPipe:seriesName:seriesStartDate:seriesEndDate:isDownloadableToday:appComponent.filterEnabled:onDownloadTodayList:nextEpisodeDetails);let seriesIndex = index">
+    <ng-container
+      *ngFor="let series of (seriesDetails|SeriesFilterPipe:seriesName:previousSeriesStartDate:previousSeriesEndDate:nextSeriesStartDate:nextSeriesEndDate:isDownloadableToday:appComponent.filterEnabled);let seriesIndex = index">
       <tr>
         <td><img src="{{seriesImageList[series.id]}}" height="100" /></td>
         <td>{{series.name}}</td>
         <td>{{series.status}}</td>
         <td>
-          <ng-container *ngIf='nextEpisodeDetails[series.id]["number"]'>S {{nextEpisodeDetails[series.id]["season"]}} E
-            {{nextEpisodeDetails[series.id]["number"]}}</ng-container>
+          <ng-container *ngIf='series.previousEpisodeNumber'>S {{series.previousEpisodeSeason}} E
+            {{series.previousEpisodeNumber}}</ng-container>
         </td>
-        <td>{{nextEpisodeDetails[series.id]["name"]}}</td>
-        <td>{{nextEpisodeDetails[series.id]["airdate"]}}</td>
+        <td>{{series.previousEpisodeName}}</td>
+        <td>{{series.previousEpisodeAirdate}}</td>
+        <td>
+          <ng-container *ngIf='series.nextEpisodeNumber'>S {{series.nextEpisodeSeason}} E
+            {{series.nextEpisodeNumber}}</ng-container>
+        </td>
+        <td>{{series.nextEpisodeName}}</td>
+        <td>{{series.nextEpisodeAirdate}}</td>
         <td>
           <!-- toggle button for collapsing series seasons -->
           <button data-toggle="collapse" attr.data-target="#series_season_{{series.id}}"
@@ -119,17 +162,18 @@
           </button>
         </td>
         <td>
-          <a *ngIf="onDownloadTodayList.includes(series.id)" href='{{appComponent.getDownloadLink(series.name,previousEpisodeDetails[series.id]["season"],previousEpisodeDetails[series.id]["number"])}}'
+          <a *ngIf='series.onDownloadToday'
+            href='{{appComponent.getDownloadLink(series.name,series.previousEpisodeSeason,series.previousEpisodeNumber)}}'
             target="_blank"><span class='fa fa-download'></span></a>
         </td>
         <td>
           <button (click)="open()">
-          <span class='fa fa-trash'></span>
-        </button>
+            <span class='fa fa-trash'></span>
+          </button>
         </td>
       </tr>
       <tr>
-        <td colspan="10">
+        <td colspan="13">
           <div id="series_wiki_{{series.id}}" class="collapse">
             <table class="table table-bordered table-hover table-sm">
               <tr *ngFor="let wiki of seriesWikiList[series.id]">
@@ -155,7 +199,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="9">
+                  <td colspan="12">
                     <div id="series_episode_{{season.id}}" class="collapse">
                       <table class="table table-bordered table-hover table-sm">
                         <tr>
@@ -186,4 +230,3 @@
     </ng-container>
   </table>
 </div>
-

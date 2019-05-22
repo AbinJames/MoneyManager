@@ -39,6 +39,17 @@ export class BaseService {
       }));
   }
 
+  deleteData(api: string, params?: any, hideLoader?: boolean): Observable<any> {
+    var url = this.baseUrl + api;
+    return this.httpClient.delete(url)
+      .pipe(map(response => {
+        return response;
+      }))
+      .pipe(catchError((error: any) => {
+        return this.handleError(error);
+      }));
+}
+
   /**function to handle error */
   public handleError(error: any) {
     let errMsg = 'Server Error';

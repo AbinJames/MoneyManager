@@ -25,9 +25,12 @@ export class ViewSeriesComponent implements OnInit {
   wikiToggleClicked: any[] = [];
   seriesEpisodeList: any[] = [];
   seriesSeasonList: any[] = [];
-  onDownloadTodayList: any[] = [];
-  nextEpisodeDetails: any[] = [];
-  previousEpisodeDetails: any[] = [];
+  sortToggle = {
+    name: 0,
+    status: 0,
+    previousEpisodeAirdate: 0,
+    nextEpisodeAirdate: 0
+  }
   nullEpisode = {
     name: "",
     airdate: ""
@@ -45,13 +48,24 @@ export class ViewSeriesComponent implements OnInit {
     this.seriesService.getSeries().subscribe(series => {
       this.seriesList = series;
       for (let index = 0; index < this.seriesList.length; index++) {
-        this.nextEpisodeDetails[this.seriesList[index].apiId] = this.nullEpisode;
-        this.seriesService.getShowDetails(this.seriesList[index].apiId).subscribe(response => {
 
+        this.seriesService.getShowDetails(this.seriesList[index].apiId).subscribe(response => {
+          var series = response;
+          series["nextEpisodeSeason"] = null;
+          series["nextEpisodeNumber"] = null;
+          series["nextEpisodeName"] = null;
+          series["nextEpisodeAirdate"] = "-";
+          series["previousEpisodeSeason"] = null;
+          series["previousEpisodeNumber"] = null;
+          series["previousEpisodeName"] = null;
+          series["previousEpisodeAirdate"] = "-";
+          series["onDownloadToday"] = false;
           if (response["_links"]["nextepisode"] != null) {
             this.seriesService.getEpisodeDetails(response["_links"]["nextepisode"]["href"]).subscribe(episode => {
-              episode["seriesId"] = this.seriesList[index].apiId;
-              this.nextEpisodeDetails[this.seriesList[index].apiId] = episode;
+              series["nextEpisodeSeason"] = episode["season"];
+              series["nextEpisodeNumber"] = episode["number"];
+              series["nextEpisodeName"] = episode["name"];
+              series["nextEpisodeAirdate"] = episode["airdate"];
             });
           }
           if (response["image"] == null) {
@@ -62,25 +76,21 @@ export class ViewSeriesComponent implements OnInit {
           }
           if (response["_links"]["previousepisode"] != null) {
             this.seriesService.getEpisodeDetails(response["_links"]["previousepisode"]["href"]).subscribe(episode => {
+              series["previousEpisodeSeason"] = episode["season"];
+              series["previousEpisodeNumber"] = episode["number"];
+              series["previousEpisodeName"] = episode["name"];
+              series["previousEpisodeAirdate"] = episode["airdate"];
               if (episode["airdate"] == formatDate(this.today, 'yyyy-MM-dd', 'en')) {
-                this.onDownloadTodayList.push(this.seriesList[index].apiId);
-                this.previousEpisodeDetails[this.seriesList[index].apiId] = episode;
-              }
-              else {
-                this.previousEpisodeDetails[this.seriesList[index].apiId] = this.nullEpisode;
+                series["onDownloadToday"] = true;
               }
             });
           }
-          else {
-            this.previousEpisodeDetails[this.seriesList[index].apiId] = this.nullEpisode;
-          }
           this.seasonToggleClicked[series["id"]] = false;
           this.wikiToggleClicked[series["id"]] = false;
-          this.seriesDetails.push(response);
+          this.seriesDetails.push(series);
         })
       }
     });
-    ;
   }
 
   toggleSeasonCollapseIcon(seriesId: any) {
@@ -119,5 +129,32 @@ export class ViewSeriesComponent implements OnInit {
 
   open() {
     this.deleteConfirmationModal.show(null);
+  }
+
+  sortList(columnName: any) {
+    var toggle = this.sortToggle[columnName];
+    this.sortToggle = {
+      name: 0,
+      status: 0,
+      previousEpisodeAirdate: 0,
+      nextEpisodeAirdate: 0
+    }
+
+    this.sortToggle[columnName] = toggle;
+    if (this.sortToggle[columnName] == 0) {
+      this.sortToggle[columnName] = 1;
+    }
+    else if (this.sortToggle[columnName] == 1) {
+      this.sortToggle[columnName] = 2;
+    }
+    else if (this.sortToggle[columnName] == 2) {
+      this.sortToggle[columnName] = 1;
+    }
+    if (this.sortToggle[columnName] == 1) {
+      this.seriesDetails.sort((a, b) => (a[columnName].toLowerCase() > b[columnName].toLowerCase()) ? 1 : -1)
+    }
+    if (this.sortToggle[columnName] == 2) {
+      this.seriesDetails.sort((a, b) => (a[columnName].toLowerCase() < b[columnName].toLowerCase()) ? 1 : -1)
+    }
   }
 }

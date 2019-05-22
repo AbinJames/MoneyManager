@@ -81,7 +81,7 @@ namespace MoneyManager.API.Data.Services.SeriesManagerDataContext
                 new Series { SeriesId = 64, ApiId = 216, SeriesName = "Rick and Morty" },
                 new Series { SeriesId = 65, ApiId = 34300, SeriesName = "Rise of the Teenage Mutant Ninja Turtles" },
                 new Series { SeriesId = 66, ApiId = 5262, SeriesName = "Riverdale" },
-                new Series { SeriesId = 67, ApiId = 37920, SeriesName = "Runaways" },
+                new Series { SeriesId = 67, ApiId = 20172, SeriesName = "Runaways" },
                 new Series { SeriesId = 68, ApiId = 22188, SeriesName = "Salvation" },
                 new Series { SeriesId = 69, ApiId = 14612, SeriesName = "Santa Clarita Diet" },
                 new Series { SeriesId = 70, ApiId = 2158, SeriesName = "Shadowhunters" },

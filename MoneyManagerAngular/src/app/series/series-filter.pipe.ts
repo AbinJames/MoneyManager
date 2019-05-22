@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'SeriesFilterPipe' })
 
 export class SeriesFilterPipe implements PipeTransform {
-    transform(seriesDetails: any[], seriesName:any, seriesStartDate: Date, seriesEndDate: Date, isDownloadableToday: number, filterEnabled: boolean,onDownloadTodayList:any[], nextEpisodeList:any[]) {
+    transform(seriesDetails: any[], seriesName:any, previousSeriesStartDate: Date, previousSeriesEndDate: Date, nextSeriesStartDate: Date, nextSeriesEndDate: Date, isDownloadableToday: number, filterEnabled: boolean) {
         //return original list if filtered button is not clicked
 
         if (!filterEnabled ) {
@@ -11,20 +11,25 @@ export class SeriesFilterPipe implements PipeTransform {
         }
 
         if (isDownloadableToday && isDownloadableToday == -1) {
-            return seriesDetails;
+            seriesDetails =  seriesDetails;
         }
 
         //if series date is not empty, select value satisfying date range filter
-        if (seriesStartDate || seriesEndDate && (seriesStartDate <= seriesEndDate)) {
-            nextEpisodeList = nextEpisodeList.filter(
+        if (previousSeriesStartDate || previousSeriesEndDate && (previousSeriesStartDate <= previousSeriesEndDate)) {
+            seriesDetails = seriesDetails.filter(
                 item =>
-                    new Date(seriesEndDate).getDate() >= new Date(item.airdate).getDate()
-                    && new Date(item.airdate).getDate() >= new Date(seriesStartDate).getDate()
+                    new Date(previousSeriesEndDate).getDate() >= new Date(item.previousEpisodeAirdate).getDate()
+                    && new Date(item.previousEpisodeAirdate).getDate() >= new Date(previousSeriesStartDate).getDate()
             );
-            
-            seriesDetails = seriesDetails.filter(series => {
-                return nextEpisodeList.filter(episode => episode.seriesId == series.id).length != 0
-            });
+        }
+
+        //if series date is not empty, select value satisfying date range filter
+        if (nextSeriesStartDate || nextSeriesEndDate && (nextSeriesStartDate <= nextSeriesEndDate)) {
+            seriesDetails = seriesDetails.filter(
+                item =>
+                    new Date(nextSeriesEndDate).getDate() >= new Date(item.nextEpisodeAirdate).getDate()
+                    && new Date(item.nextEpisodeAirdate).getDate() >= new Date(nextSeriesStartDate).getDate()
+            );
         }
 
         //if seriesDetails is not empty the filter series by seriesDetails
@@ -40,14 +45,14 @@ export class SeriesFilterPipe implements PipeTransform {
         //if seriesDetails is not empty the filter series by seriesDetails
         if (isDownloadableToday && isDownloadableToday == 1) {
             seriesDetails = seriesDetails.filter(
-                item =>onDownloadTodayList.includes(item.id)
+                item => item.onDownloadToday
             );
         }
 
         //if seriesDetails is not empty the filter series by seriesDetails
         if (isDownloadableToday && isDownloadableToday == 0) {
             seriesDetails = seriesDetails.filter(
-                item => !onDownloadTodayList.includes(item.id)
+                item => !item.onDownloadToday
             );
         }
 
