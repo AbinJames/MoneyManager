@@ -11,7 +11,6 @@ import { AddLoanComponent } from './loans/add-loan/add-loan.component';
 import { ViewLoanComponent } from './loans/view-loan/view-loan.component';
 import { ViewSavingsParametersComponent } from './savings-parameters/view-savings-parameters/view-savings-parameters.component';
 import { AddSavingsParametersComponent } from './savings-parameters/add-savings-parameters/add-savings-parameters.component';
-import { ViewSeriesComponent } from './series/view-series/view-series.component';
 
 const routes: Routes = [
   { path: 'view-home', component: HomeComponent },
@@ -25,8 +24,6 @@ const routes: Routes = [
   { path: 'view-expense', component: ViewExpenseComponent },
   { path: 'add-savings-parameter', component: AddSavingsParametersComponent },
   { path: 'view-savings-parameter', component: ViewSavingsParametersComponent },
-  //{ path: 'add-series', component: AddSe },
-  { path: 'view-series', component: ViewSeriesComponent },
   { path: '', redirectTo: '/view-home', pathMatch: 'full' }
 ];
 

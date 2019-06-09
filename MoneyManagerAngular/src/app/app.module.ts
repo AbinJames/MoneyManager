@@ -17,8 +17,6 @@ import { LoansModule } from './loans/loans.module';
 import { LoanService } from './loans/loan.service';
 import { SavingsParameterService } from './savings-parameters/savings-parameter.service';
 import { SavingsParametersModule } from './savings-parameters/savings-parameters.module';
-import { SeriesModule } from './series/series.module';
-import { SeriesService } from './series/series.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
@@ -37,7 +35,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     HomePageModule,
     LoansModule,
     BrowserAnimationsModule,
-    SeriesModule,
     AngularFontAwesomeModule
   ],
   providers: [
@@ -46,7 +43,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     ParameterService,
     ExpenseService,
     LoanService,
-    SeriesService,
     SavingsParameterService,
     DatePipe
   ],

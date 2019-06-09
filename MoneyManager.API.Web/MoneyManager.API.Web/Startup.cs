@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoneyManager.API.Data.Services.MoneyManagerDataContext;
-using MoneyManager.API.Data.Services.SeriesManagerDataContext;
 
 namespace MoneyManager.API.Web
 {
@@ -40,8 +39,7 @@ namespace MoneyManager.API.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //"SqlConnection": "Server=.\\SQLExpress;Database=TariffDatabase; Trusted_Connection=Yes;"
             services.AddDbContext<MoneyManagerContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MoneyManagerConnection")));
-            services.AddDbContext<SeriesManagerContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SeriesManagerConnection")));
-        }
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
