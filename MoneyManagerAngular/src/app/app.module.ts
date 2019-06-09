@@ -10,14 +10,14 @@ import { ParameterService } from './parameters/parameter.service';
 import { ParametersModule } from './parameters/parameters.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { ExpenseService } from './expenses/expense.service';
-import { NavbarModule } from './navbar/navbar.module';
+import { CommonPageModule } from './commonPage/common-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomePageModule } from './navbar/home-page/home-page.module';
+import { HomePageModule } from './commonPage/home-page/home-page.module';
 import { LoansModule } from './loans/loans.module';
 import { LoanService } from './loans/loan.service';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SavingsParameterService } from './savings-parameters/savings-parameter.service';
 import { SavingsParametersModule } from './savings-parameters/savings-parameters.module';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -30,12 +30,12 @@ import { SavingsParametersModule } from './savings-parameters/savings-parameters
     DepositModule,
     ParametersModule,
     ExpensesModule,
-    NavbarModule,
+    CommonPageModule,
     SavingsParametersModule,
     HomePageModule,
     LoansModule,
     BrowserAnimationsModule,
-    PaginationModule.forRoot()
+    AngularFontAwesomeModule
   ],
   providers: [
     AppComponent,

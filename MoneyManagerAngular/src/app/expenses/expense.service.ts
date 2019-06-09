@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Expense } from '../models/expense.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,7 +16,7 @@ export class ExpenseService {
     console.log("Connected to Expense Module : "+arg);
   }
 
-  addExpense(expense:Expense): void {
+  addExpense(expense:any): void {
     //Post expense details and corresponding rules to API to be saved in Database
     this.httpClient.post(this.baseUrl + 'AddExpense', expense).subscribe(result => {
       console.log(result);
@@ -26,8 +25,8 @@ export class ExpenseService {
     });
   }
 
-  getExpense():Observable<Expense[]>{
+  getExpense():Observable<any[]>{
     //returns list of expense details from api
-    return this.httpClient.get<Expense[]>(this.baseUrl+'GetExpense');
+    return this.httpClient.get<any[]>(this.baseUrl+'GetExpense');
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ParameterService } from '../parameter.service';
-import { Parameters } from 'src/app/models/parameters.model';
 import { AppComponent } from 'src/app/app.component';
 import { DepositService } from 'src/app/deposit/deposit.service';
 
@@ -13,7 +12,7 @@ export class ViewParameterComponent implements OnInit {
 
   constructor(private parameterService: ParameterService, private appComponent: AppComponent, private depositService: DepositService) { }
 
-  parameterList: Parameters[];
+  parameterList: any[];
   maxLimit: number;
   maxAmount: number;
   minAmount: number = 0;

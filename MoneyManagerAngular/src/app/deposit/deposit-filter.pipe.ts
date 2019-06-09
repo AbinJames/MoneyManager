@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Deposit } from '../models/deposit.model';
 
 @Pipe({ name: 'DepositFilterPipe' })
 
 export class DepositFilterPipe implements PipeTransform {
-    transform(depositList: Deposit[], depositStartDate: Date, depositEndDate: Date, depositSource: string, minAmount: number, maxAmount: number, filterEnabled: boolean) {
+    transform(depositList: any[], depositStartDate: Date, depositEndDate: Date, depositSource: string, minAmount: number, maxAmount: number, filterEnabled: boolean) {
         console.log("depositStartDate " + depositStartDate
             + "\ndepositEndDate " + depositEndDate
             + "\ndepositSource " + depositSource

@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MoneyManagerAngular';
+  searchString: string;
 
   constructor() { }
   filterEnabled: boolean = false;
@@ -14,5 +15,11 @@ export class AppComponent {
   //function to toggle filtering
   toggleFilter(): void {
     this.filterEnabled = !this.filterEnabled;
+  }
+
+  getDownloadLink(name: any, season: number, episode: any): string {
+    name = name.replace("'", "")
+    this.searchString = name + " s" + ((Math.floor(season / 10) > 0) ? String(season) : "0" + String(season)) + "e" + ((Math.floor(episode / 10) > 0) ? String(episode) : "0" + String(episode));
+    return `${'https://1337x.to/search/'}/${this.searchString}/${'/1/'}`;
   }
 }

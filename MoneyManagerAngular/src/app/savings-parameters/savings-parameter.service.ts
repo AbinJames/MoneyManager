@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { SavingsParameters } from '../models/savings-parameters.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class SavingsParameterService {
     console.log("Connected to SavingsParameter Module : "+arg);
   }
 
-  addSavingsParameter(savingsParameter:SavingsParameters): void {
+  addSavingsParameter(savingsParameter:any): void {
     //Post Invoice and corresponding rules to API to be saved in Database
     this.httpClient.post(this.baseUrl + 'AddSavingsParameter', savingsParameter).subscribe(result => {
       console.log(result);
@@ -26,8 +25,8 @@ export class SavingsParameterService {
     });
   }
 
-  getSavingsParameters():Observable<SavingsParameters[]>{
+  getSavingsParameters():Observable<any[]>{
     //returns list of savingsParameter details from api
-    return this.httpClient.get<SavingsParameters[]>(this.baseUrl+'GetSavingsParameters');
+    return this.httpClient.get<any[]>(this.baseUrl+'GetSavingsParameters');
   }
 }

@@ -1,33 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Deposit } from '../models/deposit.model';
 import { Observable } from 'rxjs';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepositService {
 
-  constructor(private httpClient:HttpClient, private router:Router) { }
+  constructor(private router:Router, private baseService: BaseService) { }
 
-  baseUrl: string = 'https://localhost:44379/api/MoneyManager/Deposit/';
+  baseApi: string = 'Deposit/';
 
-  printToConsole(arg) {
+  printToConsole(arg: string) {
     console.log("Connected to Deposit Module : "+arg);
   }
 
-  addDeposit(deposit:Deposit): void {
+  addDeposit(deposit:any): void {
     //Post Invoice and corresponding rules to API to be saved in Database
-    this.httpClient.post(this.baseUrl + 'AddDeposit', deposit).subscribe(result => {
+    this.baseService.addData(this.baseApi + 'AddDeposit', deposit).subscribe(result => {
       console.log(result);
       //navigate to view component after post
       this.router.navigate(['view-deposit']);
     });
   }
 
-  getDeposit():Observable<Deposit[]>{
+  getDeposit():Observable<any[]>{
     //returns list of deposit details from api
-    return this.httpClient.get<Deposit[]>(this.baseUrl+'GetDeposit');
+    return this.baseService.getData(this.baseApi+'GetDeposit');
   }
 }

@@ -5,26 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20181207072403_MoneyManagerMigration.cs" />
-    <Compile Remove="Migrations\20181210092432_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181210115159_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181210125502_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181210125646_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181210130035_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181211085833_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181211111705_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181211114115_MoneyManagerMigr.cs" />
-    <Compile Remove="Migrations\20181227113316_MoneyManager.cs" />
-    <Compile Remove="Migrations\20190106081519_MoneyManager.cs" />
+    <Compile Remove="Migrations\SeriesManager\20190224184945_SeriesManager.cs" />
+    <Compile Remove="Migrations\SeriesManager\20190302070447_SeriesManagerMigr.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

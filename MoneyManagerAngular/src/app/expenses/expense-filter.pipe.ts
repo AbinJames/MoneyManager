@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Expense } from '../models/expense.model';
 
 @Pipe({ name: 'ExpenseFilterPipe' })
 
 export class ExpenseFilterPipe implements PipeTransform {
-    transform(expenseList: Expense[], expenseStartDate: Date, expenseEndDate: Date, expenseDetails: string, minAmount: number, maxAmount: number, isSavingsParameter: number, parameterId: number, filterEnabled: boolean) {
+    transform(expenseList: any[], expenseStartDate: Date, expenseEndDate: Date, expenseDetails: string, minAmount: number, maxAmount: number, isSavingsParameter: number, parameterId: number, filterEnabled: boolean) {
         console.log("expenseStartDate " + expenseStartDate
             + "\nexpenseEndDate " + expenseEndDate
             + "\nexpenseDetails " + expenseDetails

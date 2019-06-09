@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Parameters } from '../models/parameters.model';
 
 @Pipe({ name: 'ParameterFilterPipe' })
 
 export class ParameterFilterPipe implements PipeTransform {
-    transform(parameterList: Parameters[], parameterName: string, minAmount: number, maxAmount: number, minBalance: number, maxBalance: number, filterEnabled: boolean) {
+    transform(parameterList: any[], parameterName: string, minAmount: number, maxAmount: number, minBalance: number, maxBalance: number, filterEnabled: boolean) {
         console.log("\nparameterName " + parameterName
             + "\nminAmount " + minAmount
             + "\nmaxAmount " + maxAmount

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoanService } from '../loan.service';
-import { Loan } from 'src/app/models/loan.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Parameters } from 'src/app/models/parameters.model';
 
 @Component({
   selector: 'app-add-loan',
@@ -15,7 +13,7 @@ export class AddLoanComponent implements OnInit {
   constructor(private loanService: LoanService, private formBuilder: FormBuilder, private datePipe: DatePipe) { }
 
   loanForm: FormGroup;
-  loan: Loan;
+  loan: any;
   currentDate: string
 
   ngOnInit() {

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../expense.service';
-import { Expense } from 'src/app/models/expense.model';
 import { AppComponent } from 'src/app/app.component';
 import { DatePipe } from '@angular/common';
 import { ParameterService } from 'src/app/parameters/parameter.service';
-import { Parameters } from 'src/app/models/parameters.model';
-import { SavingsParameters } from 'src/app/models/savings-parameters.model';
 import { SavingsParameterService } from 'src/app/savings-parameters/savings-parameter.service';
 
 @Component({
@@ -17,7 +14,7 @@ export class ViewExpenseComponent implements OnInit {
 
   constructor(private expenseService: ExpenseService, private parameterService: ParameterService, private savingsParameterService:SavingsParameterService, private appComponent: AppComponent, private datePipe: DatePipe) { }
 
-  expenseList: Expense[];
+  expenseList: any[];
   minAmount: number = 0;
   maxAmount: number = 1000;
   maxLimit: number = 0;
@@ -26,8 +23,8 @@ export class ViewExpenseComponent implements OnInit {
   expenseEndDate: string;
   minDateLimit: string;
   maxDateLimit: string;
-  parameterList: Parameters[];
-  savingsParameterList: SavingsParameters[];
+  parameterList: any[];
+  savingsParameterList: any[];
 
   ngOnInit() {
 
